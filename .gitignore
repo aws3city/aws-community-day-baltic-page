@@ -1,0 +1,38 @@
+# Ignoruj folder wygenerowanej strony statycznej
+/public/
+/resources/_gen/
+
+# Ignoruj katalog z szablonami (ładowane z innych repo)
+themes/
+
+# Ignoruj pliki konfiguracyjne IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Ignoruj pliki systemowe
+.DS_Store
+Thumbs.db
+
+# Ignoruj logi
+*.log
+
+# Ignoruj pliki tymczasowe systemu operacyjnego i edytorów
+*.swp
+*.bak
+*.tmp
+*.temp
+
+# Ignoruj pliki tymczasowe Hugo
+/hugo_stats.json
+/hugo_cache/
+
+# Ignoruj zależności Node.js (jeśli używane)
+node_modules/
+
+# Ignoruj pliki tymczasowe Git
+.git/
+
+# Ignoruj wyjścia binarne Hugo (jeśli budujesz lokalnie binarkę Hugo)
+/hugo
