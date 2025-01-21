@@ -1,5 +1,5 @@
 ---
-title: "Architecture"
+title: "Architecture and Scalability"
 icon: "compass"
 ---
 

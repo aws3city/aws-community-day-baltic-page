@@ -1,4 +1,4 @@
 ---
-title: "Cost Optimization"
+title: "Security and Compliance"
 icon: "piggy-bank"
 ---
