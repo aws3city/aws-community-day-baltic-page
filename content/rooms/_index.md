@@ -18,6 +18,9 @@ OR:
 
 Just show a list of rooms (as temporary solution)
 
--->
 {{< list-rooms >}}
 
+-->
+
+{{< figure src="img/ppnt-p0.png" alt="Ground Floor Map" title="Ground Floor" >}}
+{{< figure src="img/ppnt-p1.png" alt="Ground Floor Map" title="First Floor" >}}
