@@ -1,5 +1,5 @@
 ---
-title: "Rooms"
+title: "Venue"
 menu:
     main:
         weight: 300
@@ -22,5 +22,6 @@ Just show a list of rooms (as temporary solution)
 
 -->
 
-{{< figure src="img/ppnt-p0.png" alt="Ground Floor Map" title="Ground Floor" >}}
-{{< figure src="img/ppnt-p1.png" alt="Ground Floor Map" title="First Floor" >}}
+{{< figure src="img/building-3.png" alt="Ground Floor Map" title="PPNT Map" >}}
+{{< figure src="img/ppnt-p0.png" alt="Ground Floor Map" title="Building III Ground Floor" >}}
+{{< figure src="img/ppnt-p1.png" alt="Ground Floor Map" title="Building III First Floor" >}}

@@ -1,4 +1,4 @@
 theme = "aws-community-day"
-baseURL = "http://localhost:1313/"
+baseURL = "https://awsbaltic.eu/"
 languageCode = "en-us"
 title = "AWS Community Day Baltic"
