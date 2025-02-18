@@ -13,7 +13,7 @@ jobs:
       - name: create theme
         run: mkdir ./themes
       - name: create aws
-        run: mkdir ./themes/aws-community-day-baltic-theme/
+        run: mkdir ./themes/aws-community-day/
       - name: import
         uses:  actions/checkout@v3
         with:
