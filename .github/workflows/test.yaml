@@ -30,6 +30,6 @@ jobs:
           AWS_S3_BUCKET: ${{ secrets.AWS_ACCOUNT }}
           AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
-          AWS_S3_ENDPOINT: 'http://awsbaltic.eu/'
+          AWS_S3_ENDPOINT: 'https://awsbaltic.eu/'
           AWS_REGION: 'eu-north-1'
           SOURCE_DIR: 'public'
