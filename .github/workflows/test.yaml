@@ -15,7 +15,7 @@ jobs:
       - name: create aws
         run: mkdir ./themes/aws-community-day/
       - name: check
-        run: ls aws-community-day/
+        run: ls themes/
       - name: import
         uses:  actions/checkout@v3
         with:
