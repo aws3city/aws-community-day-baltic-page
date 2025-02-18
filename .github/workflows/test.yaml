@@ -1,0 +1,12 @@
+name: deploy hugo
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        uses: peaceiris/actions-hugo@v3
+      - name: build
+        run: hugo --minify
+      - name: deploy
+        uses: peaceiris/actions-gh-pages@v3
