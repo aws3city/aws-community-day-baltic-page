@@ -15,10 +15,9 @@ jobs:
       - name: import
         uses:  actions/checkout@v3
         with:
-          repository: 'aws3city/aws-community-day-baltic-page'
+          repository: 'aws3city/aws-community-day-baltic-theme'
           path: themes
-      - name: proba
-        uses: ./themes
+     
       - name: Build
         env:
           TZ: 'Europe/Berlin'
