@@ -11,6 +11,8 @@ jobs:
         with:
           hugo-version: latest
       - name: create theme
+        run: mkdir /themes
+      - name: create aws
         run: mkdir /themes/aws-community-day-baltic-theme/
       - name: import
         uses:  actions/checkout@v3
