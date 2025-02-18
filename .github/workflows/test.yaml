@@ -17,6 +17,8 @@ jobs:
         with:
           repository: 'aws3city/aws-community-day-baltic-page'
           path: themes
+      - name: proba
+        uses: ./themes
       - name: Build
         env:
           TZ: 'Europe/Berlin'
