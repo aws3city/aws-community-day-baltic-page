@@ -25,6 +25,7 @@ jobs:
       - name: Build
         run: hugo
       - name: deploy
+        uses: jakejarvis/s3-sync-action@master
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_ACCOUNT }}
           AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
