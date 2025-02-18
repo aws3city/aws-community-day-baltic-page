@@ -21,6 +21,6 @@ jobs:
           path: themes/aws-community-day-baltic-theme
      
       - name: Build
-        run: hugo --minify
+        run: hugo
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
