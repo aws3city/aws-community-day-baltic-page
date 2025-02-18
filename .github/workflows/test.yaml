@@ -11,12 +11,12 @@ jobs:
         with:
           hugo-version: latest
       - name: create theme
-        run: touch themes
+        run: mkdir themes/aws-community-day-baltic-theme
       - name: import
         uses:  actions/checkout@v3
         with:
           repository: 'aws3city/aws-community-day-baltic-theme'
-          path: themes
+          path: themes/aws-community-day-baltic-theme
      
       - name: Build
         env:
