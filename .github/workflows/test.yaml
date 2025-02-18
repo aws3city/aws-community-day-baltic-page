@@ -9,7 +9,7 @@ jobs:
       - name: Setup
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: latest
+          hugo-version: '0.119.0'
       - name: create theme
         run: mkdir ./themes
       - name: create aws
