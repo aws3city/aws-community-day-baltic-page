@@ -10,6 +10,7 @@ jobs:
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: '0.140.1'
+          extended: true
       - name: create theme
         run: mkdir ./themes
       - name: create aws
