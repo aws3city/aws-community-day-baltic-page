@@ -6,13 +6,16 @@ jobs:
     steps:
       - name: Git checkout
         uses: actions/checkout@v4
-        with:
-          submodules: true
-          fetch-depth: 0
       - name: Setup
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: latest
+      - name: create theme
+        run: touch themes
+      - name: import
+        uses:  actions/checkout@v3
+        with:
+          repository: 'aws3city/aws-community-day-baltic-page'
       - name: Build
         env:
           TZ: 'Europe/Berlin'
