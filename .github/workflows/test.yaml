@@ -24,10 +24,10 @@ jobs:
         run: ls themes/aws-community-day/
       - name: Build
         run: hugo
-      - name: check
-        run: ls
       - name: checkout
         uses: actions/checkout@master
+      - name: check
+        run: ls
       - name: deploy
         uses: jakejarvis/s3-sync-action@master
         env:
@@ -36,3 +36,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}         
           AWS_S3_ENDPOINT: 'https://awsbaltic.eu/'
           AWS_REGION: 'eu-north-1'
+          SOURCE_DIR: './public'
