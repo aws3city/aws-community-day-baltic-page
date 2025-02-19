@@ -40,4 +40,4 @@ jobs:
       - name: Sync files to S3
         run: aws s3 sync ./public s3://awsbaltic.eu 
       - name:
-        run: aws cloudfront create-invalidation --distribution-id arn:aws:cloudfront:727646513686:distribution/E1NALC48G0QR9N --paths "/*"
+        run: aws cloudfront create-invalidation --distribution-id E1NALC48G0QR9N --paths "/*"
