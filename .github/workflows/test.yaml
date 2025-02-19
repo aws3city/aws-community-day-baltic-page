@@ -1,0 +1,43 @@
+name: deploy hugo
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+      - name: Setup
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.140.1'
+          extended: true
+      - name: create theme
+        run: mkdir ./themes
+      - name: create aws
+        run: mkdir ./themes/aws-community-day/
+      - name: import
+        uses:  actions/checkout@v3
+        with:
+          repository: 'aws3city/aws-community-day-baltic-theme'
+          path: './themes/aws-community-day/'   
+      - name: check
+        run: ls themes/aws-community-day/
+      - name: Build
+        run: hugo
+      - name: check
+        run: ls
+      - name: Install AWS CLI
+        run: sudo pip install awscli
+        
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
+          aws-region: 'eu-north-1'
+
+
+      - name: Sync files to S3
+        run: aws s3 sync ./public s3://awsbaltic.eu --acl public-read
+      - name:
+        run: aws cloudfront create-invalidation --distribution-id E1NALC48G0QR9N --paths "/*"
