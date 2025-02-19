@@ -24,6 +24,8 @@ jobs:
         run: ls themes/aws-community-day/
       - name: Build
         run: hugo
+      - name: check
+        run: ls
       - name: checkout
         uses: actions/checkout@master
       - name: deploy
