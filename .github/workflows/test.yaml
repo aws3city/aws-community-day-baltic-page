@@ -26,12 +26,16 @@ jobs:
         run: hugo
       - name: check
         run: ls
-      - name: deploy
-        uses: jakejarvis/s3-sync-action@master
-        env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_ACCOUNT }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}         
-          AWS_S3_ENDPOINT: 'https://awsbaltic.eu/'
-          AWS_REGION: 'eu-north-1'
-          SOURCE_DIR: './public'
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
+          aws-region: 'eu-north-1'
+      - name: Install AWS CLI
+        run: sudo apt-get install -y awscli
+      - name: Sync files to S3
+        run: aws s3 sync ./ s3://${{ secrets.AWS_ACCOUNT }} --delete
+  
+  
+  
