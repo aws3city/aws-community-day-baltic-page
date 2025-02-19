@@ -24,6 +24,8 @@ jobs:
         run: ls themes/aws-community-day/
       - name: Build
         run: hugo
+      - name: checkout
+        uses: actions/checkout@master
       - name: deploy
         uses: jakejarvis/s3-sync-action@master
         env:
