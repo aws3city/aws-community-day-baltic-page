@@ -3,21 +3,26 @@
   Usage: {{< sponsors level="gold" >}}
   Renders sponsor logos by level, linking to the sponsor website if provided.
 */}}
-{{- $level := .Get "level" | default "gold" -}}
-{{- $all := where site.RegularPages "Section" "sponsors" -}}
-{{- $items := where $all ".Params.level" "==" $level -}}
+{{- $section := .Get "section" | default "sponsors" -}}
+{{- $level := .Get "level" -}}
+{{- $all := where site.RegularPages "Section" $section -}}
+{{- $items := $all -}}
+{{- if $level -}}
+  {{- $items = where $all ".Params.level" "==" $level -}}
+{{- end -}}
 {{- if gt (len $items) 0 -}}
-  <div class="row justify-content-center align-items-center g-4 sponsors sponsors-{{ $level }}">
+  {{- $scopeClass := printf "sponsors-%s" (or $level "all") -}}
+  <div class="row justify-content-center align-items-center g-4 sponsors {{ $scopeClass }}">
     <style>
       /* Scope styles to this sponsors block only */
-      .sponsors.sponsors-{{ $level }} .logo-box {
+      .sponsors.{{ $scopeClass }} .logo-box {
         height: 110px;
         /* prevent layout shifts and keep consistent visual size */
         display: flex;
         align-items: center;
         justify-content: center;
       }
-      .sponsors.sponsors-{{ $level }} .logo-box img {
+      .sponsors.{{ $scopeClass }} .logo-box img {
         max-height: 100%;
         max-width: 100%;
         width: auto;
