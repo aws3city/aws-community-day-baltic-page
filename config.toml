@@ -2,3 +2,5 @@ theme = "aws-community-day"
 baseURL = "https://awsbaltic.eu/"
 languageCode = "en-us"
 title = "AWS Community Day Baltic"
+[params]
+headerLogo = "/img/topleft.png"
