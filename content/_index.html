@@ -46,9 +46,19 @@ default_og_text: True
 
 <div class="py-5" style="background-color: #2a3a4e;">
     <div class="container">
-        {{< sponsors level="venue" >}}
+        <div class="row mb-3">
+            <div class="col-12 text-center text-white-50">Main Sponsor</div>
+        </div>
+        {{< sponsors level="main" >}}
+
+        <div class="row mt-5 mb-3">
+            <div class="col-12 text-center text-white-50">Gold Sponsors</div>
+        </div>
         {{< sponsors level="gold" >}}
-        {{< sponsors level="silver" >}}
+
+        <div class="row mt-5 mb-3">
+            <div class="col-12 text-center text-white-50">Bronze Sponsors</div>
+        </div>
         {{< sponsors level="bronze" >}}
     </div>
     </div>
