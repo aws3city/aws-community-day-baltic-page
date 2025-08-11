@@ -1,1 +1,6 @@
-{{ .Site.Title }}
+{{- $logo := .Site.Params.headerLogo -}}
+{{- if $logo -}}
+  <img src="{{ relURL $logo }}" alt="{{ .Site.Title }}" style="height:28px; width:auto; display:inline-block; vertical-align:middle;"/>
+{{- else -}}
+  {{ .Site.Title }}
+{{- end -}}
