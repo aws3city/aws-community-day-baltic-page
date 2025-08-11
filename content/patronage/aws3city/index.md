@@ -1,3 +1,3 @@
 
-title: "Invest in Pomerania"
-website: "https://investinpomerania.pl/en/"
+title: "AWS UserGroup 3City"
+website: "https://linktr.ee/aws3city"
