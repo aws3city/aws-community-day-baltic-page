@@ -1,8 +1,4 @@
----
 title: "Partners"
-menu:
-    main:
-        weight: 200
 ---
 
 <div class="container py-5">
