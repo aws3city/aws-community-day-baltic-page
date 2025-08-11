@@ -3,4 +3,8 @@ baseURL = "https://awsbaltic.eu/"
 languageCode = "en-us"
 title = "AWS Community Day Baltic"
 [params]
-headerLogo = "/img/topleft.png"
+headerLogo = "/img/awsbaltic.png"
+images = ["/img/awsbaltic.png"]
+ogImage = "/img/awsbaltic.png"
+twitterImage = "/img/awsbaltic.png"
+twitterCard = "summary_large_image"
