@@ -8,6 +8,23 @@
 {{- $items := where $all ".Params.level" "==" $level -}}
 {{- if gt (len $items) 0 -}}
   <div class="row justify-content-center align-items-center g-4 sponsors sponsors-{{ $level }}">
+    <style>
+      /* Scope styles to this sponsors block only */
+      .sponsors.sponsors-{{ $level }} .logo-box {
+        height: 110px;
+        /* prevent layout shifts and keep consistent visual size */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .sponsors.sponsors-{{ $level }} .logo-box img {
+        max-height: 100%;
+        max-width: 100%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+      }
+    </style>
     {{- range $items -}}
       {{- $logo := .Resources.GetMatch "img/logo*" -}}
       {{- if not $logo -}}
@@ -15,11 +32,13 @@
       {{- end -}}
       {{- $href := .Params.website | default .RelPermalink -}}
       <div class="col-6 col-md-4 col-lg-3 text-center">
-        <a href="{{ $href }}" target="_blank" rel="noopener" class="d-inline-block p-2">
+        <a href="{{ $href }}" target="_blank" rel="noopener" class="d-inline-block p-2 w-100">
           {{- if $logo -}}
-            <img src="{{ $logo.RelPermalink }}" alt="{{ .Title }} logo" class="img-fluid" style="max-height: 90px; object-fit: contain;" />
+            <div class="logo-box">
+              <img src="{{ $logo.RelPermalink }}" alt="{{ .Title }} logo" loading="lazy" />
+            </div>
           {{- else -}}
-            <div class="text-white-50">{{ .Title }}</div>
+            <div class="logo-box text-white-50">{{ .Title }}</div>
           {{- end -}}
         </a>
       </div>
