@@ -1,5 +1,5 @@
 ---
 title: "AWS"
-level: "gold"
+level: "main"
 website: "https://aws.amazon.com"
 ---
