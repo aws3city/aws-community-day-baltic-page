@@ -47,9 +47,19 @@
           {{- $role := .Params.role -}}
           {{- $company := .Params.company -}}
           {{- $location := .Params.location -}}
+          {{- $headline := .Params.headline | default "" -}}
+          {{- $headlineLower := lower $headline -}}
+          {{- $isHero := or (in $headlineLower "hero") (eq (printf "%v" .Params.hero) "true") -}}
+          {{- $isBuilder := or (in $headlineLower "community builder") (eq (printf "%v" .Params.community_builder) "true") -}}
           {{- if or $role $company -}}
             <div class="text-white-50 mb-3">
               {{- if $role -}}{{ $role }}{{- end -}}{{- if and $role $company -}}, {{- end -}}{{- if $company -}}{{ $company }}{{- end -}}
+            </div>
+          {{- end -}}
+          {{- if or $isHero $isBuilder -}}
+            <div class="mb-3 d-flex gap-2 flex-wrap">
+              {{- if $isHero -}}<span class="badge" style="background:linear-gradient(90deg,#ff9900,#6f42c1);border:0;">AWS Hero</span>{{- end -}}
+              {{- if $isBuilder -}}<span class="badge" style="background:linear-gradient(90deg,#22d3ee,#0ea5e9);border:0;">AWS Community Builder</span>{{- end -}}
             </div>
           {{- end -}}
           {{- if $location -}}
