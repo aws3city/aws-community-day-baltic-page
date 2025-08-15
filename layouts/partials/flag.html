@@ -1,24 +1,26 @@
 {{- $loc := lower (default "" .) -}}
-{{- if in $loc "estonia" -}}🇪🇪{{- end -}}
-{{- if in $loc "poland" -}}🇵🇱{{- end -}}
-{{- if or (in $loc "italy") (in $loc "italia") -}}🇮🇹{{- end -}}
-{{- if in $loc "lithuania" -}}🇱🇹{{- end -}}
-{{- if in $loc "latvia" -}}🇱🇻{{- end -}}
-{{- if in $loc "finland" -}}🇫🇮{{- end -}}
-{{- if in $loc "sweden" -}}🇸🇪{{- end -}}
-{{- if in $loc "germany" -}}🇩🇪{{- end -}}
-{{- if or (in $loc "united kingdom") (in $loc "uk") (in $loc "england") (in $loc "scotland") (in $loc "wales") -}}🇬🇧{{- end -}}
-{{- if or (in $loc "united states") (in $loc "usa") (in $loc "us") (in $loc "america") -}}🇺🇸{{- end -}}
-{{- if in $loc "ireland" -}}🇮🇪{{- end -}}
-{{- if in $loc "denmark" -}}🇩🇰{{- end -}}
-{{- if in $loc "norway" -}}🇳🇴{{- end -}}
-{{- if in $loc "spain" -}}🇪🇸{{- end -}}
-{{- if in $loc "france" -}}🇫🇷{{- end -}}
-{{- if in $loc "netherlands" -}}🇳🇱{{- end -}}
-{{- if in $loc "belgium" -}}🇧🇪{{- end -}}
-{{- if in $loc "austria" -}}🇦🇹{{- end -}}
-{{- if in $loc "switzerland" -}}🇨🇭{{- end -}}
-{{- if in $loc "georgia" -}}🇬🇪{{- end -}}
-{{- if in $loc "mexico" -}}🇲🇽{{- end -}}
-{{- if in $loc "slovakia" -}}🇸🇰{{- end -}}
+{{- $isBaltic := or (in $loc "poland") (or (in $loc "germany") (or (in $loc "denmark") (or (in $loc "sweden") (or (in $loc "finland") (or (in $loc "estonia") (or (in $loc "latvia") (in $loc "lithuania"))))))) -}}
+{{- if in $loc "estonia" -}}<span class="flag-emoji">🇪🇪</span>{{- end -}}
+{{- if in $loc "poland" -}}<span class="flag-emoji">🇵🇱</span>{{- end -}}
+{{- if or (in $loc "italy") (in $loc "italia") -}}<span class="flag-emoji">🇮🇹</span>{{- end -}}
+{{- if in $loc "lithuania" -}}<span class="flag-emoji">🇱🇹</span>{{- end -}}
+{{- if in $loc "latvia" -}}<span class="flag-emoji">🇱🇻</span>{{- end -}}
+{{- if in $loc "finland" -}}<span class="flag-emoji">🇫🇮</span>{{- end -}}
+{{- if in $loc "sweden" -}}<span class="flag-emoji">🇸🇪</span>{{- end -}}
+{{- if in $loc "germany" -}}<span class="flag-emoji">🇩🇪</span>{{- end -}}
+{{- if or (in $loc "united kingdom") (in $loc "uk") (in $loc "england") (in $loc "scotland") (in $loc "wales") -}}<span class="flag-emoji">🇬🇧</span>{{- end -}}
+{{- if or (in $loc "united states") (in $loc "usa") (in $loc "us") (in $loc "america") -}}<span class="flag-emoji">🇺🇸</span>{{- end -}}
+{{- if in $loc "ireland" -}}<span class="flag-emoji">🇮🇪</span>{{- end -}}
+{{- if in $loc "denmark" -}}<span class="flag-emoji">🇩🇰</span>{{- end -}}
+{{- if in $loc "norway" -}}<span class="flag-emoji">🇳🇴</span>{{- end -}}
+{{- if in $loc "spain" -}}<span class="flag-emoji">🇪🇸</span>{{- end -}}
+{{- if in $loc "france" -}}<span class="flag-emoji">🇫🇷</span>{{- end -}}
+{{- if in $loc "netherlands" -}}<span class="flag-emoji">🇳🇱</span>{{- end -}}
+{{- if in $loc "belgium" -}}<span class="flag-emoji">🇧🇪</span>{{- end -}}
+{{- if in $loc "austria" -}}<span class="flag-emoji">🇦🇹</span>{{- end -}}
+{{- if in $loc "switzerland" -}}<span class="flag-emoji">🇨🇭</span>{{- end -}}
+{{- if in $loc "georgia" -}}<span class="flag-emoji">🇬🇪</span>{{- end -}}
+{{- if in $loc "mexico" -}}<span class="flag-emoji">🇲🇽</span>{{- end -}}
+{{- if in $loc "slovakia" -}}<span class="flag-emoji">🇸🇰</span>{{- end -}}
+{{- if $isBaltic -}}<span class="baltic-emoji">🌊</span>{{- end -}}
 
