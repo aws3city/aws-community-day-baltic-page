@@ -33,8 +33,23 @@
 
   <div class="row gy-3 speakers-list">
     {{- $all := where site.RegularPages "Section" "speakers" -}}
-    {{- $items := sort $all "Title" -}}
-    {{- range $items -}}
+    {{- /* Heroes first; others in random order */ -}}
+    {{- $scratch := newScratch -}}
+    {{- $scratch.Set "heroes" (slice) -}}
+    {{- $scratch.Set "others" (slice) -}}
+    {{- range $all -}}
+      {{- $headline := .Params.headline | default "" -}}
+      {{- $headlineLower := lower $headline -}}
+      {{- $isHero := or (in $headlineLower "hero") (eq (printf "%v" .Params.hero) "true") -}}
+      {{- if $isHero -}}
+        {{- $scratch.Add "heroes" (slice .) -}}
+      {{- else -}}
+        {{- $scratch.Add "others" (slice .) -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $ordered := slice (sort ($scratch.Get "heroes") "Title") (shuffle ($scratch.Get "others")) -}}
+    {{- range $group := $ordered -}}
+      {{- range $ := $group -}}
       {{- $photo := .Resources.GetMatch "img/photo*" -}}
       {{- if not $photo -}}
         {{- $photo = .Resources.GetMatch "img/*" -}}
@@ -87,6 +102,7 @@
           </div>
         </div>
       </div>
+      {{- end -}}
     {{- end -}}
   </div>
 </div>
