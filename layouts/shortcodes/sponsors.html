@@ -21,6 +21,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: box-shadow .2s ease;
       }
       .sponsors.{{ $scopeClass }} .logo-box img {
         max-height: 100%;
@@ -29,6 +30,14 @@
         height: auto;
         object-fit: contain;
       }
+      /* Hover glows by category */
+      .sponsors.sponsors-gold a:hover .logo-box { box-shadow: 0 0 0 3px #d4af37, 0 0 18px 8px rgba(212,175,55,.6); }
+      .sponsors.sponsors-bronze a:hover .logo-box { box-shadow: 0 0 0 3px #cd7f32, 0 0 18px 8px rgba(205,127,50,.6); }
+      .sponsors.sponsors-venue a:hover .logo-box,
+      .sponsors.sponsors-main a:hover .logo-box,
+      .sponsors.sponsors-all a:hover .logo-box { box-shadow: 0 0 0 3px #6c7a89, 0 0 16px 8px rgba(108,122,137,.5); }
+      .sponsors.sponsors-patronage a:hover .logo-box,
+      .sponsors.sponsors-organised-by a:hover .logo-box { box-shadow: 0 0 0 3px #6f42c1, 0 0 16px 8px #ff9900; }
     </style>
     {{- range $items -}}
       {{- $logo := .Resources.GetMatch "img/logo*" -}}
