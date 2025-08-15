@@ -1,0 +1,68 @@
+{{ define "main" }}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 text-center mb-4">
+      <h1 class="h2 m-0">{{ .Title }}</h1>
+    </div>
+  </div>
+
+  <style>
+    .speakers-grid .speaker-card .speaker-photo-box {
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #17202c;
+      border-radius: .5rem;
+      overflow: hidden;
+    }
+    .speakers-grid .speaker-card img.speaker-photo {
+      max-height: 100%;
+      max-width: 100%;
+      width: auto;
+      height: auto;
+      object-fit: cover;
+      display: block;
+    }
+    .speakers-grid .speaker-name {
+      font-weight: 600;
+    }
+    .speakers-grid .speaker-role {
+      color: rgba(255,255,255,.6);
+      font-size: .95rem;
+    }
+  </style>
+
+  <div class="row g-4 speakers-grid">
+    {{- $items := where site.RegularPages "Section" "speakers" | sort "Title" -}}
+    {{- range $items -}}
+      {{- $photo := .Resources.GetMatch "img/photo*" -}}
+      {{- if not $photo -}}
+        {{- $photo = .Resources.GetMatch "img/*" -}}
+      {{- end -}}
+      {{- $href := .Params.talk | default .RelPermalink -}}
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="speaker-card text-center h-100">
+          <a href="{{ $href }}" class="d-block speaker-photo-box mb-3" {{ if .Params.talk }}target="_blank" rel="noopener"{{ end }}>
+            {{- if $photo -}}
+              <img src="{{ $photo.RelPermalink }}" alt="{{ .Title }}" class="speaker-photo" loading="lazy" />
+            {{- else -}}
+              <div class="text-white-50">No photo</div>
+            {{- end -}}
+          </a>
+          <div class="speaker-name">{{ .Title }}</div>
+          {{- $role := .Params.role -}}
+          {{- $company := .Params.company -}}
+          {{- if or $role $company -}}
+            <div class="speaker-role">
+              {{- if $role -}}{{ $role }}{{- end -}}{{- if and $role $company -}}, {{- end -}}{{- if $company -}}{{ $company }}{{- end -}}
+            </div>
+          {{- end -}}
+        </div>
+      </div>
+    {{- end -}}
+  </div>
+</div>
+{{ end }}
+
+

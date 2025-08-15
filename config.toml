@@ -2,6 +2,12 @@ theme = "aws-community-day"
 baseURL = "https://awsbaltic.eu/"
 languageCode = "en-us"
 title = "AWS Community Day Baltic"
+canonifyURLs = true
+[menu]
+  [[menu.main]]
+    name = "Speakers"
+    url = "/speakers/"
+    weight = 30
 [params]
 headerLogo = "/img/awsbaltic.png"
 images = ["/img/awsbaltic.png"]
