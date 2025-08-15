@@ -1,6 +1,6 @@
 ---
 title: "Asia Chojnacka"
-headline: "Senior Software Engineer & Cloud Community Leader at Capgemini"
+headline: "Senior Software Engineer & Cloud Community Leader at Capgemini | AWS Community Builder"
 summary: "DynamoDB Demystified – Core Features & the Single-Table Design"
 format: "Session"
 location: "Wrocław, Poland"
