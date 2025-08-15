@@ -1,6 +1,6 @@
 ---
 title: "Grzegorz Kalwig"
-headline: "AWS UserGroup 3City Leader (Poland)"
+headline: "AWS UG 3City Leader • Community Leader (Poland)"
 linkedin: "https://www.linkedin.com/in/grzegorz-kalwig/"
 role: "organizer"
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Suzana Melo Moraes"
-headline: "AWS Community Builder (Sweden)"
+headline: "AWS Community Builder"
 linkedin: "https://www.linkedin.com/in/suzanamelomoraes/"
 role: "committee"
 ---

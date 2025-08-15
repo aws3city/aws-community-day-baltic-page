@@ -1,6 +1,6 @@
 ---
 title: "Jimmy Dahlqvist"
-headline: "AWS Serverless Hero (Sweden)"
+headline: "AWS Serverless Hero"
 linkedin: "https://www.linkedin.com/in/dahlqvistjimmy/"
 role: "committee"
 ---

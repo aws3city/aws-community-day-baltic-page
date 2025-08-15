@@ -22,9 +22,13 @@
     .speakers-list .role-badges .badge.builder { background: linear-gradient(90deg, #22d3ee, #0ea5e9); }
     .speakers-list .role-badges .badge.employee { background: linear-gradient(90deg, #ffbf00, #ff9900); color:#1b1f24; }
     /* Keep badges aligned across cards by reserving vertical space before them (desktop only) */
+    /* Equalize badge alignment across a row */
     @media (min-width: 992px) {
-      .speakers-list .meta-block { min-height: 82px; }
+      .speakers-list .meta-block { min-height: 110px; }
     }
+    .speakers-list .speaker-item { display:flex; align-items:flex-start; gap:1rem; height:100%; }
+    .speakers-list .speaker-text { display:flex; flex-direction:column; }
+    .speakers-list .role-badges { margin-top:auto; }
   </style>
 
   <div class="row gy-4 speakers-list">
@@ -45,7 +49,7 @@
       {{- $headlineSan := cond $isHero (replaceRE `(?i)[[:space:]]*[|]?[[:space:]]*aws serverless hero` "" $headlineSan) $headlineSan -}}
       {{- $headlineDisplay := cond $isEmployee (replaceRE `\s*\(aws\)` "" $headlineSan) (trim $headlineSan " |") -}}
       <div class="col-12 col-lg-4">
-        <div class="d-flex align-items-start gap-3">
+        <div class="speaker-item">
           <a href="{{ $href }}" {{ if .Params.talk }}target="_blank" rel="noopener"{{ end }} class="d-inline-block flex-shrink-0 avatar-link">
             {{- if $photo -}}
               <span class="avatar-frame {{ if $isHero }}is-hero{{ else if $isEmployee }}is-employee{{ else if $isBuilder }}is-builder{{ end }}"><img src="{{ $photo.RelPermalink }}" alt="{{ .Title }}" loading="lazy" /></span>
