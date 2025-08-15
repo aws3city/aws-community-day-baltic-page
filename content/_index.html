@@ -14,8 +14,16 @@ images: ["/img/awsbaltic.png"]
                 <div class="h1">AWS Community Day Baltic</div>
                 <div class="h4">10 September, 2025 | Gdynia (3City), Poland 🇵🇱 | 09:00 - 18:00</div>
                 <div class="lead">Join us at the Pomeranian Science and Technology Park (PPNT) for a full-day conference packed with workshops, inspiring keynotes, and breakout sessions on the latest in business and technology.</div>
-                <div class="buttons my-3">
+                <style>
+                    /* Hero buttons hover glow */
+                    .hero-buttons .btn-acd { box-shadow: 0 0 0 0 rgba(0,0,0,0); transition: box-shadow .2s ease, transform .2s ease; }
+                    .hero-buttons .btn-acd:hover { box-shadow: 0 0 0 3px #ff9900, 0 0 16px 8px #6f42c1; transform: translateZ(0); }
+                    .hero-buttons .btn-speakers { background:#6f42c1; border:0; color:#fff; }
+                    .hero-buttons .btn-speakers:hover { box-shadow: 0 0 0 3px #6f42c1, 0 0 16px 8px #ff9900; }
+                </style>
+                <div class="buttons my-3 hero-buttons d-flex gap-2 flex-wrap">
                     <a href="https://awsbaltic.eventbrite.co.uk/?aff=website" class="btn-acd btn-acd-lg">Registration is open</a>
+                    <a href="/speakers/" class="btn-acd btn-acd-lg btn-speakers">Speakers</a>
                 </div>
             </div>
         </div>

@@ -29,31 +29,8 @@
 
   <div class="row gy-4 speakers-list">
     {{- $all := where site.RegularPages "Section" "speakers" -}}
-    {{- /* Order: AWS Heroes, then AWS Employees, then AWS Community Builders, then others (each group sorted by title) */ -}}
-    {{- $scratch := newScratch -}}
-    {{- $scratch.Set "heroes" (slice) -}}
-    {{- $scratch.Set "employees" (slice) -}}
-    {{- $scratch.Set "builders" (slice) -}}
-    {{- $scratch.Set "others" (slice) -}}
-    {{- range $all -}}
-      {{- $h := .Params.headline | default "" -}}
-      {{- $hl := lower $h -}}
-      {{- $isHero := or (in $hl "hero") (eq (printf "%v" .Params.hero) "true") -}}
-      {{- $isEmployee := eq (printf "%v" .Params.aws_employee) "true" -}}
-      {{- $isBuilder := or (in $hl "community builder") (eq (printf "%v" .Params.community_builder) "true") -}}
-      {{- if $isHero -}}
-        {{- $scratch.Add "heroes" (slice .) -}}
-      {{- else if $isEmployee -}}
-        {{- $scratch.Add "employees" (slice .) -}}
-      {{- else if $isBuilder -}}
-        {{- $scratch.Add "builders" (slice .) -}}
-      {{- else -}}
-        {{- $scratch.Add "others" (slice .) -}}
-      {{- end -}}
-    {{- end -}}
-    {{- $ordered := slice (sort ($scratch.Get "heroes") "Title") (sort ($scratch.Get "employees") "Title") (sort ($scratch.Get "builders") "Title") (sort ($scratch.Get "others") "Title") -}}
-    {{- range $group := $ordered -}}
-      {{- range $ := $group -}}
+    {{- $items := sort $all "Title" -}}
+    {{- range $items -}}
       {{- $photo := .Resources.GetMatch "img/photo*" -}}
       {{- if not $photo -}}
         {{- $photo = .Resources.GetMatch "img/*" -}}
@@ -106,7 +83,6 @@
           </div>
         </div>
       </div>
-      {{- end -}}
     {{- end -}}
   </div>
 </div>
