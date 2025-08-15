@@ -93,7 +93,7 @@
                 </div>
               {{- end -}}
               {{- if $location -}}
-                <div class="speaker-sub">{{ $location }} <span style="font-size:1.25em; line-height:1; display:inline-block; vertical-align:middle;">{{ partial "flag.html" $location }}</span></div>
+                <div class="speaker-sub">{{ $location }} <span style="font-size:1.25em; line-height:1; display:inline-block; vertical-align:middle;">{{ partial "flag.html" (dict "location" $location "page" .) }}</span></div>
               {{- end -}}
             </div>
             {{- if or $isHero (or $isEmployee $isBuilder) -}}
