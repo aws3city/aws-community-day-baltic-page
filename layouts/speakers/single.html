@@ -73,7 +73,7 @@
             </div>
           {{- end -}}
           {{- if $location -}}
-            <div class="text-white-50 mb-3">{{ $location }} {{ partial "flag.html" $location }}</div>
+            <div class="text-white-50 mb-3">{{ $location }} {{ partial "flag.html" (dict "location" $location "page" .) }}</div>
           {{- end -}}
           
           <div class="content">{{ .Content }}</div>
