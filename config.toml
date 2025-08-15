@@ -3,6 +3,11 @@ baseURL = "https://awsbaltic.eu/"
 languageCode = "en-us"
 title = "AWS Community Day Baltic"
 canonifyURLs = true
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+ignoreLogs = ['warning-goldmark-raw-html']
 [menu]
   [[menu.main]]
     name = "Speakers"

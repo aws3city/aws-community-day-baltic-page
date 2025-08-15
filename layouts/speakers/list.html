@@ -34,7 +34,8 @@
   </style>
 
   <div class="row g-4 speakers-grid">
-    {{- $items := where site.RegularPages "Section" "speakers" | sort "Title" -}}
+    {{- $all := where site.RegularPages "Section" "speakers" -}}
+    {{- $items := sort $all "Title" -}}
     {{- range $items -}}
       {{- $photo := .Resources.GetMatch "img/photo*" -}}
       {{- if not $photo -}}
