@@ -1,6 +1,6 @@
 ---
 title: "Grzegorz Kalwig"
-headline: "AWS UG 3City Leader — Gdynia, Poland 🇵🇱"
+headline: "AWS UG 3City Leader — Gdynia, Poland"
 linkedin: "https://www.linkedin.com/in/grzegorz-kalwig/"
 role: "organizer"
 community_builder: true
