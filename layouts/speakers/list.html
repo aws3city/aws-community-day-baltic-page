@@ -9,9 +9,10 @@
   <style>
     .speakers-list .avatar-frame { width: 76px; height: 76px; border-radius: 9999px; background:#17202c; overflow:hidden; display:block; box-shadow: 0 0 0 0 rgba(0,0,0,0); transition: box-shadow .2s ease; }
     .speakers-list .avatar-frame img { width:100%; height:100%; object-fit:cover; object-position: 50% 25%; display:block; }
+    /* hover-only glows: default, hero, builder */
     .speakers-list a.avatar-link:hover .avatar-frame { box-shadow: 0 0 0 3px #6f42c1, 0 0 14px 6px #ff9900; }
-    .speakers-list .avatar-frame.is-hero { box-shadow: 0 0 0 2px #ff9900, 0 0 10px 4px #6f42c1; }
-    .speakers-list .avatar-frame.is-builder { box-shadow: 0 0 0 2px #0ea5e9, 0 0 10px 4px #22d3ee; }
+    .speakers-list a.avatar-link:hover .avatar-frame.is-hero { box-shadow: 0 0 0 3px #ff6b00, 0 0 16px 8px #9b59b6; }
+    .speakers-list a.avatar-link:hover .avatar-frame.is-builder { box-shadow: 0 0 0 3px #0ea5e9, 0 0 16px 8px #22d3ee; }
     .speakers-list .speaker-name { font-weight: 700; }
     .speakers-list .speaker-sub { color: rgba(255,255,255,.75); }
     .speakers-list .speaker-text { flex: 1 1 auto; min-width: 0; }
@@ -22,8 +23,27 @@
 
   <div class="row gy-4 speakers-list">
     {{- $all := where site.RegularPages "Section" "speakers" -}}
-    {{- $items := sort $all "Title" -}}
-    {{- range $items -}}
+    {{- /* Order: AWS Heroes, then AWS Community Builders, then others (each group sorted by title) */ -}}
+    {{- $scratch := newScratch -}}
+    {{- $scratch.Set "heroes" (slice) -}}
+    {{- $scratch.Set "builders" (slice) -}}
+    {{- $scratch.Set "others" (slice) -}}
+    {{- range $all -}}
+      {{- $h := .Params.headline | default "" -}}
+      {{- $hl := lower $h -}}
+      {{- $isHero := or (in $hl "hero") (eq (printf "%v" .Params.hero) "true") -}}
+      {{- $isBuilder := or (in $hl "community builder") (eq (printf "%v" .Params.community_builder) "true") -}}
+      {{- if $isHero -}}
+        {{- $scratch.Add "heroes" (slice .) -}}
+      {{- else if $isBuilder -}}
+        {{- $scratch.Add "builders" (slice .) -}}
+      {{- else -}}
+        {{- $scratch.Add "others" (slice .) -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $ordered := slice (sort ($scratch.Get "heroes") "Title") (sort ($scratch.Get "builders") "Title") (sort ($scratch.Get "others") "Title") -}}
+    {{- range $group := $ordered -}}
+      {{- range $ := $group -}}
       {{- $photo := .Resources.GetMatch "img/photo*" -}}
       {{- if not $photo -}}
         {{- $photo = .Resources.GetMatch "img/*" -}}
@@ -33,6 +53,7 @@
       {{- $headlineLower := lower $headline -}}
       {{- $isHero := or (in $headlineLower "hero") (eq (printf "%v" .Params.hero) "true") -}}
       {{- $isBuilder := or (in $headlineLower "community builder") (eq (printf "%v" .Params.community_builder) "true") -}}
+      {{- $headlineDisplay := trim (replaceRE "(?i)\s*\|?\s*aws community builder" "" $headline) " |" -}}
       <div class="col-12 col-lg-4">
         <div class="d-flex align-items-start gap-3">
           <a href="{{ $href }}" {{ if .Params.talk }}target="_blank" rel="noopener"{{ end }} class="d-inline-block flex-shrink-0 avatar-link">
@@ -44,13 +65,19 @@
           </a>
           <div class="text-start speaker-text">
             <div class="speaker-name">{{ .Title }}</div>
+            <div class="mb-1 d-flex flex-wrap gap-2 align-items-center">
+              {{- with .Params.linkedin -}}<a href="{{ . }}" target="_blank" rel="noopener" title="LinkedIn">🔗</a>{{- end -}}
+              {{- with .Params.twitter -}}<a href="{{ . }}" target="_blank" rel="noopener" title="X / Twitter">𝕏</a>{{- end -}}
+              {{- with .Params.website -}}<a href="{{ . }}" target="_blank" rel="noopener" title="Website">🌐</a>{{- end -}}
+              {{- with .Params.blog -}}<a href="{{ . }}" target="_blank" rel="noopener" title="Blog">📝</a>{{- end -}}
+            </div>
             {{- $role := .Params.role -}}
             {{- $company := .Params.company -}}
             {{- $location := .Params.location -}}
             {{- if or $headline (or $role $company) -}}
               <div class="speaker-sub">
                 {{- if $headline -}}
-                  {{ $headline }}
+                  {{ $headlineDisplay }}
                 {{- else -}}
                   {{- if $role -}}{{ $role }}{{- end -}}{{- if and $role $company -}} @ {{- end -}}{{- if $company -}}{{ $company }}{{- end -}}
                 {{- end -}}
@@ -68,6 +95,7 @@
           </div>
         </div>
       </div>
+      {{- end -}}
     {{- end -}}
   </div>
 </div>
