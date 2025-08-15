@@ -20,7 +20,8 @@
         <span class="avatar mb-2">{{ if $photo }}<img src="{{ $photo.RelPermalink }}" alt="{{ .Title }}" />{{ end }}</span>
         <div class="name h5 m-0">{{ .Title }}</div>
         {{- with .Params.headline -}}<div class="role">{{ . }}</div>{{- end -}}
-        {{- with .Params.location -}}<div class="loc">{{ . }} <span style="font-size:1.35em; line-height:1; display:inline-block; vertical-align:middle;">{{ partial "flag.html" (dict "location" . "page" $) }}</span></div>{{- end -}}
+        {{- $page := . -}}
+        {{- with .Params.location -}}<div class="loc">{{ . }} <span style="font-size:1.35em; line-height:1; display:inline-block; vertical-align:middle;">{{ partial "flag.html" (dict "location" . "page" $page) }}</span></div>{{- end -}}
       </a>
     </div>
   {{- end -}}
