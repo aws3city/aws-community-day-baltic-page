@@ -1,7 +1,9 @@
 ---
 title: "Stefano Amorelli"
 headline: "Staff Software Engineer — AI"
-summary: "TBD"
+summary: "Clean, Reusable Agents with AWS Strands"
+format: "Session"
+level: "300"
 location: "Tallinn, Estonia"
 email: "stefano@amorelli.tech"
 linkedin: "https://linkedin.com/in/stefanoamorelli/"

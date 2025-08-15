@@ -17,20 +17,39 @@
           </div>
         </div>
         <div class="col-12 col-md-8">
+          {{- $talkTitle := .Params.summary | default "TBD" -}}
+          <div class="mb-2 h4 m-0">{{ $talkTitle }}</div>
+          {{- $format := .Params.format -}}
+          {{- $level := .Params.level -}}
+          {{- if or $format $level -}}
+            <div class="mb-3 d-flex flex-wrap gap-2">
+              {{- with $format -}}<span class="badge bg-secondary">{{ . }}</span>{{- end -}}
+              {{- with $level -}}<span class="badge bg-secondary">Level {{ . }}</span>{{- end -}}
+            </div>
+          {{- end -}}
           <h1 class="h3">{{ .Title }}</h1>
           {{- $role := .Params.role -}}
           {{- $company := .Params.company -}}
+          {{- $location := .Params.location -}}
           {{- if or $role $company -}}
             <div class="text-white-50 mb-3">
               {{- if $role -}}{{ $role }}{{- end -}}{{- if and $role $company -}}, {{- end -}}{{- if $company -}}{{ $company }}{{- end -}}
             </div>
           {{- end -}}
-          <div class="content">{{ .Content }}</div>
-          {{- with .Params.talk -}}
-            <div class="mt-4">
-              <a class="btn-acd" href="{{ . }}" target="_blank" rel="noopener">View Talk</a>
-            </div>
+          {{- if $location -}}
+            <div class="text-white-50 mb-3">{{ $location }} {{ partial "flag.html" $location }}</div>
           {{- end -}}
+          
+          <div class="content">{{ .Content }}</div>
+          <div class="mt-4 d-flex flex-wrap gap-2 align-items-center">
+            {{- with .Params.talk -}}
+              <a class="btn-acd" href="{{ . }}" target="_blank" rel="noopener">View Talk</a>
+            {{- end -}}
+            {{- with .Params.linkedin -}}<a href="{{ . }}" target="_blank" rel="noopener" title="LinkedIn">🔗</a>{{- end -}}
+            {{- with .Params.twitter -}}<a href="{{ . }}" target="_blank" rel="noopener" title="X / Twitter">𝕏</a>{{- end -}}
+            {{- with .Params.website -}}<a href="{{ . }}" target="_blank" rel="noopener" title="Website">🌐</a>{{- end -}}
+            {{- with .Params.blog -}}<a href="{{ . }}" target="_blank" rel="noopener" title="Blog">📝</a>{{- end -}}
+          </div>
         </div>
       </div>
     </div>
