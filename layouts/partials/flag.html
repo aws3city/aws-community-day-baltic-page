@@ -1,0 +1,21 @@
+{{- $loc := lower (default "" .) -}}
+{{- if in $loc "estonia" -}}🇪🇪{{- end -}}
+{{- if in $loc "poland" -}}🇵🇱{{- end -}}
+{{- if or (in $loc "italy") (in $loc "italia") -}}🇮🇹{{- end -}}
+{{- if in $loc "lithuania" -}}🇱🇹{{- end -}}
+{{- if in $loc "latvia" -}}🇱🇻{{- end -}}
+{{- if in $loc "finland" -}}🇫🇮{{- end -}}
+{{- if in $loc "sweden" -}}🇸🇪{{- end -}}
+{{- if in $loc "germany" -}}🇩🇪{{- end -}}
+{{- if or (in $loc "united kingdom") (in $loc "uk") (in $loc "england") (in $loc "scotland") (in $loc "wales") -}}🇬🇧{{- end -}}
+{{- if or (in $loc "united states") (in $loc "usa") (in $loc "us") (in $loc "america") -}}🇺🇸{{- end -}}
+{{- if in $loc "ireland" -}}🇮🇪{{- end -}}
+{{- if in $loc "denmark" -}}🇩🇰{{- end -}}
+{{- if in $loc "norway" -}}🇳🇴{{- end -}}
+{{- if in $loc "spain" -}}🇪🇸{{- end -}}
+{{- if in $loc "france" -}}🇫🇷{{- end -}}
+{{- if in $loc "netherlands" -}}🇳🇱{{- end -}}
+{{- if in $loc "belgium" -}}🇧🇪{{- end -}}
+{{- if in $loc "austria" -}}🇦🇹{{- end -}}
+{{- if in $loc "switzerland" -}}🇨🇭{{- end -}}
+

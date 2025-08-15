@@ -42,6 +42,7 @@
             {{- $role := .Params.role -}}
             {{- $company := .Params.company -}}
             {{- $headline := .Params.headline -}}
+            {{- $location := .Params.location -}}
             {{- if or $headline (or $role $company) -}}
               <div class="speaker-sub">
                 {{- if $headline -}}
@@ -50,6 +51,9 @@
                   {{- if $role -}}{{ $role }}{{- end -}}{{- if and $role $company -}} @ {{- end -}}{{- if $company -}}{{ $company }}{{- end -}}
                 {{- end -}}
               </div>
+            {{- end -}}
+            {{- if $location -}}
+              <div class="speaker-sub">{{ $location }} {{ partial "flag.html" $location }}</div>
             {{- end -}}
           </div>
         </div>
