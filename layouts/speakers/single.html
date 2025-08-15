@@ -4,17 +4,33 @@
     <div class="col-12 col-lg-10">
       <div class="row g-4 align-items-start">
         <div class="col-12 col-md-4">
+          <style>
+            .speaker-photo-frame { background:#17202c; border-radius:.75rem; overflow:hidden; width:100%; aspect-ratio: 4 / 3; position:relative; display:block; }
+            .speaker-photo-frame img { width:100%; height:100%; object-fit:cover; transition: filter .2s ease, transform .2s ease; display:block; }
+            .speaker-photo-frame.is-clickable { cursor:pointer; }
+            .speaker-photo-frame.is-clickable:hover img { filter: blur(2px) brightness(.9); transform: scale(1.02); }
+          </style>
           {{- $photo := .Resources.GetMatch "img/photo*" -}}
           {{- if not $photo -}}
             {{- $photo = .Resources.GetMatch "img/*" -}}
           {{- end -}}
-          <div class="speaker-photo-box mb-3" style="background:#17202c;border-radius:.5rem;overflow:hidden;display:flex;align-items:center;justify-content:center;height:280px;">
-            {{- if $photo -}}
-              <img src="{{ $photo.RelPermalink }}" alt="{{ .Title }}" style="max-width:100%;max-height:100%;object-fit:cover;"/>
-            {{- else -}}
-              <div class="text-white-50">No photo</div>
-            {{- end -}}
-          </div>
+          {{- if .Params.talk -}}
+            <a href="{{ .Params.talk }}" target="_blank" rel="noopener" class="speaker-photo-frame is-clickable mb-3">
+              {{- if $photo -}}
+                <img src="{{ $photo.RelPermalink }}" alt="{{ .Title }}"/>
+              {{- else -}}
+                <div class="text-white-50 d-flex align-items-center justify-content-center w-100 h-100">No photo</div>
+              {{- end -}}
+            </a>
+          {{- else -}}
+            <div class="speaker-photo-frame mb-3">
+              {{- if $photo -}}
+                <img src="{{ $photo.RelPermalink }}" alt="{{ .Title }}"/>
+              {{- else -}}
+                <div class="text-white-50 d-flex align-items-center justify-content-center w-100 h-100">No photo</div>
+              {{- end -}}
+            </div>
+          {{- end -}}
         </div>
         <div class="col-12 col-md-8">
           {{- $talkTitle := .Params.summary | default "TBD" -}}

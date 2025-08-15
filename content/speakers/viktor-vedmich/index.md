@@ -1,0 +1,15 @@
+---
+title: "Viktor Vedmich"
+headline: "Senior Developer Advocate | AWS"
+summary: "Model Context Protocol (MCP): From Zero to Hero"
+format: "Session"
+level: "300"
+location: "Munich, Germany"
+linkedin: "https://linkedin.com/in/vedmich/"
+twitter: "https://x.com/vedmichv"
+website: "https://aws.amazon.com/free/"
+---
+
+During his career, Viktor worked as a developer, systems engineer, and systems architect. For a long time, he combined the roles of system architect and engineer on projects based on Kubernetes. He always shares knowledge through talks, audio, and video podcasts.
+
+
