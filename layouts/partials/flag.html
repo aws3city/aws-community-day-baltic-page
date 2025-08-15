@@ -1,14 +1,14 @@
 {{- $loc := lower (default "" .location) -}}
 {{- $page := .page -}}
 {{- $isBalticCity := or (in $loc "tallinn") (or (in $loc "gdansk") (or (in $loc "gdańsk") (or (in $loc "gdynia") (or (in $loc "sopot") (or (in $loc "copenhagen") (or (in $loc "københavn") (or (in $loc "malmo") (or (in $loc "malmö") (or (in $loc "stockholm") (or (in $loc "helsinki") (or (in $loc "turku") (or (in $loc "riga") (or (in $loc "klaipeda") (in $loc "klaipėda")))))))))))))) -}}
-{{- if in $loc "estonia" -}}<span class="flag-emoji">🇪🇪</span>{{- end -}}
-{{- if in $loc "poland" -}}<span class="flag-emoji">🇵🇱</span>{{- end -}}
+{{- if in $loc "estonia" -}}<span class="flag-emoji" aria-label="Estonia">🇪🇪</span>{{- end -}}
+{{- if in $loc "poland" -}}<span class="flag-emoji" aria-label="Poland">🇵🇱</span>{{- end -}}
 {{- if or (in $loc "italy") (in $loc "italia") -}}<span class="flag-emoji">🇮🇹</span>{{- end -}}
 {{- if in $loc "lithuania" -}}<span class="flag-emoji">🇱🇹</span>{{- end -}}
 {{- if in $loc "latvia" -}}<span class="flag-emoji">🇱🇻</span>{{- end -}}
 {{- if in $loc "finland" -}}<span class="flag-emoji">🇫🇮</span>{{- end -}}
-{{- if in $loc "sweden" -}}<span class="flag-emoji">🇸🇪</span>{{- end -}}
-{{- if in $loc "germany" -}}<span class="flag-emoji">🇩🇪</span>{{- end -}}
+{{- if in $loc "sweden" -}}<span class="flag-emoji" aria-label="Sweden">🇸🇪</span>{{- end -}}
+{{- if in $loc "germany" -}}<span class="flag-emoji" aria-label="Germany">🇩🇪</span>{{- end -}}
 {{- if or (in $loc "united kingdom") (in $loc "uk") (in $loc "england") (in $loc "scotland") (in $loc "wales") -}}<span class="flag-emoji">🇬🇧</span>{{- end -}}
 {{- if or (in $loc "united states") (in $loc "usa") (in $loc "us") (in $loc "america") -}}<span class="flag-emoji">🇺🇸</span>{{- end -}}
 {{- if in $loc "ireland" -}}<span class="flag-emoji">🇮🇪</span>{{- end -}}
