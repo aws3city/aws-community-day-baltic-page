@@ -53,7 +53,7 @@
       {{- $headlineLower := lower $headline -}}
       {{- $isHero := or (in $headlineLower "hero") (eq (printf "%v" .Params.hero) "true") -}}
       {{- $isBuilder := or (in $headlineLower "community builder") (eq (printf "%v" .Params.community_builder) "true") -}}
-      {{- $headlineDisplay := trim (replaceRE "(?i)\s*\|?\s*aws community builder" "" $headline) " |" -}}
+      {{- $headlineDisplay := trim (replaceRE `(?i)[[:space:]]*[|]?[[:space:]]*aws community builder` "" $headline) " |" -}}
       <div class="col-12 col-lg-4">
         <div class="d-flex align-items-start gap-3">
           <a href="{{ $href }}" {{ if .Params.talk }}target="_blank" rel="noopener"{{ end }} class="d-inline-block flex-shrink-0 avatar-link">
