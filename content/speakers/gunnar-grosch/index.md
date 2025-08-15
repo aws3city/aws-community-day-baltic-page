@@ -1,6 +1,6 @@
 ---
 title: "Gunnar Grosch"
-headline: "Principal Developer Advocate (AWS) — Keynote Speaker"
+headline: "Principal Developer Advocate | AWS"
 summary: "Keynote Speaker"
 format: "Keynote"
 location: "Karlstad, Sweden"
