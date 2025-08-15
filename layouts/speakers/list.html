@@ -24,14 +24,14 @@
     /* Keep badges aligned across cards by reserving vertical space before them (desktop only) */
     /* Equalize badge alignment across a row */
     @media (min-width: 992px) {
-      .speakers-list .meta-block { min-height: 110px; }
+      .speakers-list .meta-block { min-height: 92px; }
     }
     .speakers-list .speaker-item { display:flex; align-items:flex-start; gap:1rem; height:100%; }
     .speakers-list .speaker-text { display:flex; flex-direction:column; }
     .speakers-list .role-badges { margin-top:auto; }
   </style>
 
-  <div class="row gy-4 speakers-list">
+  <div class="row gy-3 speakers-list">
     {{- $all := where site.RegularPages "Section" "speakers" -}}
     {{- $items := sort $all "Title" -}}
     {{- range $items -}}
@@ -58,7 +58,7 @@
             {{- end -}}
           </a>
           <div class="text-start speaker-text">
-            <div class="speaker-name">{{ .Title }}</div>
+            <div class="speaker-name"><a href="{{ $href }}" {{ if .Params.talk }}target="_blank" rel="noopener"{{ end }} class="text-reset text-decoration-none">{{ .Title }}</a></div>
             {{- if or $isHero (or $isEmployee $isBuilder) -}}
               <div class="role-badges mt-1 d-flex gap-2 flex-wrap">
                 {{- if $isHero -}}<span class="badge hero">AWS Hero</span>{{- end -}}
