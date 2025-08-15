@@ -6,9 +6,8 @@
         <div class="col-12 col-md-4">
           <style>
             .speaker-photo-frame { background:#17202c; border-radius:.75rem; overflow:hidden; width:100%; aspect-ratio: 4 / 3; position:relative; display:block; }
-            .speaker-photo-frame img { width:100%; height:100%; object-fit:cover; transition: filter .2s ease, transform .2s ease; display:block; }
+            .speaker-photo-frame img { width:100%; height:100%; object-fit:cover; object-position: 50% 25%; display:block; }
             .speaker-photo-frame.is-clickable { cursor:pointer; }
-            .speaker-photo-frame.is-clickable:hover img { filter: blur(2px) brightness(.9); transform: scale(1.02); }
             .speaker-photo-frame.is-clickable:hover { box-shadow: 0 0 0 3px #6f42c1, 0 0 18px 8px #ff9900; }
           </style>
           {{- $photo := .Resources.GetMatch "img/photo*" -}}
