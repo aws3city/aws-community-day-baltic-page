@@ -1,0 +1,41 @@
+{{ define "main" }}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-10">
+      <div class="row g-4 align-items-start">
+        <div class="col-12 col-md-4">
+          {{- $photo := .Resources.GetMatch "img/photo*" -}}
+          {{- if not $photo -}}
+            {{- $photo = .Resources.GetMatch "img/*" -}}
+          {{- end -}}
+          <div class="speaker-photo-box mb-3" style="background:#17202c;border-radius:.5rem;overflow:hidden;display:flex;align-items:center;justify-content:center;height:280px;">
+            {{- if $photo -}}
+              <img src="{{ $photo.RelPermalink }}" alt="{{ .Title }}" style="max-width:100%;max-height:100%;object-fit:cover;"/>
+            {{- else -}}
+              <div class="text-white-50">No photo</div>
+            {{- end -}}
+          </div>
+        </div>
+        <div class="col-12 col-md-8">
+          <h1 class="h3">{{ .Title }}</h1>
+          {{- $role := .Params.role -}}
+          {{- $company := .Params.company -}}
+          {{- if or $role $company -}}
+            <div class="text-white-50 mb-3">
+              {{- if $role -}}{{ $role }}{{- end -}}{{- if and $role $company -}}, {{- end -}}{{- if $company -}}{{ $company }}{{- end -}}
+            </div>
+          {{- end -}}
+          <div class="content">{{ .Content }}</div>
+          {{- with .Params.talk -}}
+            <div class="mt-4">
+              <a class="btn-acd" href="{{ . }}" target="_blank" rel="noopener">View Talk</a>
+            </div>
+          {{- end -}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}
+
+
