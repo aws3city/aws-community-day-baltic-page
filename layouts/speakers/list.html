@@ -29,6 +29,11 @@
     .speakers-list .speaker-item { display:flex; align-items:flex-start; gap:1rem; height:100%; }
     .speakers-list .speaker-text { display:flex; flex-direction:column; }
     .speakers-list .role-badges { margin-top:auto; }
+    /* Make emoji flags/waves pop for readability */
+    .speakers-list .flag-emoji, .speakers-list .baltic-emoji {
+      text-shadow: 0 0 2px #000, 0 0 6px rgba(255,255,255,.2);
+      filter: saturate(1.15);
+    }
   </style>
 
   <div class="row gy-3 speakers-list">
