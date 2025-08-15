@@ -59,6 +59,13 @@
           </a>
           <div class="text-start speaker-text">
             <div class="speaker-name">{{ .Title }}</div>
+            {{- if or $isHero (or $isEmployee $isBuilder) -}}
+              <div class="role-badges mt-1 d-flex gap-2 flex-wrap">
+                {{- if $isHero -}}<span class="badge hero">AWS Hero</span>{{- end -}}
+                {{- if $isEmployee -}}<span class="badge employee">AWS Employee</span>{{- end -}}
+                {{- if $isBuilder -}}<span class="badge builder">AWS Community Builder</span>{{- end -}}
+              </div>
+            {{- end -}}
             <!-- social links removed on list view -->
             {{- $role := .Params.role -}}
             {{- $company := .Params.company -}}
@@ -77,13 +84,6 @@
                 <div class="speaker-sub">{{ $location }} <span style="font-size:1.25em; line-height:1; display:inline-block; vertical-align:middle;">{{ partial "flag.html" (dict "location" $location "page" .) }}</span></div>
               {{- end -}}
             </div>
-            {{- if or $isHero (or $isEmployee $isBuilder) -}}
-              <div class="role-badges mt-1 d-flex gap-2 flex-wrap">
-                {{- if $isHero -}}<span class="badge hero">AWS Hero</span>{{- end -}}
-                {{- if $isEmployee -}}<span class="badge employee">AWS Employee</span>{{- end -}}
-                {{- if $isBuilder -}}<span class="badge builder">AWS Community Builder</span>{{- end -}}
-              </div>
-            {{- end -}}
           </div>
         </div>
       </div>
