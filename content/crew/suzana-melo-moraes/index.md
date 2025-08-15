@@ -2,7 +2,7 @@
 title: "Suzana Melo Moraes"
 headline: "AWS Community Builder"
 linkedin: "https://www.linkedin.com/in/suzanamelomoraes/"
-role: "committee"
+role: "organizer"
 ---
 
 I am a full-stack developer and developer relations with a solid communication and people skills background. 

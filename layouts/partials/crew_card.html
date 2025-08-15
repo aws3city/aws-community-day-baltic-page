@@ -1,0 +1,12 @@
+{{- $photo := .Resources.GetMatch "img/photo*" -}}
+{{- if not $photo -}}{{- $photo = .Resources.GetMatch "img/*" -}}{{- end -}}
+{{- $isBuilder := or (in (lower (.Params.headline | default "")) "community builder") (eq (printf "%v" .Params.community_builder) "true") -}}
+<div class="d-flex align-items-start gap-3 crew-card">
+  <span class="avatar-frame"><img src="{{ with $photo }}{{ .RelPermalink }}{{ end }}" alt="{{ .Title }}"/></span>
+  <div class="crew-text">
+    <div class="name h6 m-0">{{ .Title }}</div>
+    {{- if $isBuilder }}<div class="role-badges mt-1"><span class="badge builder">AWS Community Builder</span></div>{{- end -}}
+    <div class="sub text-white-50">{{ .Params.headline }}</div>
+  </div>
+</div>
+

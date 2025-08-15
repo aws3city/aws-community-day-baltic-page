@@ -1,8 +1,9 @@
 ---
 title: "Grzegorz Kalwig"
-headline: "AWS UG 3City Leader • Community Leader (Poland)"
+headline: "AWS UG 3City Leader — Gdynia, Poland 🇵🇱"
 linkedin: "https://www.linkedin.com/in/grzegorz-kalwig/"
 role: "organizer"
+community_builder: true
 ---
 
 System Architect with 13+ years of IT experience, specializing in AWS and Kubernetes. Certified AWS DevOps Professional and Security Specialist with a proven track record in public sector projects, including the Ministry of National Defense and emergency services. Former CTO with expertise in secure data center creation.
