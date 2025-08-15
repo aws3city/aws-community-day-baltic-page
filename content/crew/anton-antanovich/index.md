@@ -1,6 +1,6 @@
 ---
 title: "Anton Antanovich"
-headline: "AWS UG 3City Leader — Gdańsk, Poland 🇵🇱"
+headline: "AWS UG 3City Leader — Gdańsk, Poland"
 linkedin: "https://www.linkedin.com/in/antanovich3city/"
 role: "organizer"
 community_builder: true
