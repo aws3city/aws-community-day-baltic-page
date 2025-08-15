@@ -2,12 +2,12 @@
 {{- if not $photo -}}{{- $photo = .Resources.GetMatch "img/*" -}}{{- end -}}
 {{- $isBuilder := eq (printf "%v" .Params.community_builder) "true" -}}
 {{- $loc := .Params.headline | default "" -}}
-<div class="d-flex align-items-start gap-3 crew-card">
+<a href="{{ .Params.linkedin }}" target="_blank" rel="noopener" class="d-flex align-items-start gap-3 crew-card text-reset text-decoration-none">
   <span class="avatar-frame"><img src="{{ with $photo }}{{ .RelPermalink }}{{ end }}" alt="{{ .Title }}"/></span>
   <div class="crew-text">
-    <div class="name h6 m-0"><a href="{{ .Params.linkedin }}" target="_blank" rel="noopener" class="text-reset text-decoration-none">{{ .Title }}</a></div>
+    <div class="name h6 m-0">{{ .Title }}</div>
     {{- if $isBuilder }}<div class="role-badges mt-1"><span class="badge builder">AWS Community Builder</span></div>{{- end -}}
     <div class="sub text-white-50">{{ $loc }} {{ if $loc }}{{ partial "flag.html" (dict "location" $loc "page" .) }}{{ end }}</div>
   </div>
-</div>
+</a>
 

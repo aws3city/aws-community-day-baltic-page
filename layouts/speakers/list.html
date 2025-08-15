@@ -78,32 +78,34 @@
             {{- end -}}
           </a>
           <div class="text-start speaker-text">
-            <div class="speaker-name"><a href="{{ $href }}" {{ if .Params.talk }}target="_blank" rel="noopener"{{ end }} class="text-reset text-decoration-none">{{ .Title }}</a></div>
-            {{- if or $isHero (or $isEmployee $isBuilder) -}}
-              <div class="role-badges mt-1 d-flex gap-2 flex-wrap">
-                {{- if $isHero -}}<span class="badge hero">AWS Hero</span>{{- end -}}
-                {{- if $isEmployee -}}<span class="badge employee">AWS Employee</span>{{- end -}}
-                {{- if $isBuilder -}}<span class="badge builder">AWS Community Builder</span>{{- end -}}
-              </div>
-            {{- end -}}
-            <!-- social links removed on list view -->
-            {{- $role := .Params.role -}}
-            {{- $company := .Params.company -}}
-            {{- $location := .Params.location -}}
-            <div class="meta-block">
-              {{- if or $headline (or $role $company) -}}
-                <div class="speaker-sub">
-                  {{- if $headline -}}
-                    {{ $headlineDisplay }}
-                  {{- else -}}
-                    {{- if $role -}}{{ $role }}{{- end -}}{{- if and $role $company -}} @ {{- end -}}{{- if $company -}}{{ $company }}{{- end -}}
-                  {{- end -}}
+            <a href="{{ $href }}" {{ if .Params.talk }}target="_blank" rel="noopener"{{ end }} class="text-reset text-decoration-none d-block">
+              <div class="speaker-name">{{ .Title }}</div>
+              {{- if or $isHero (or $isEmployee $isBuilder) -}}
+                <div class="role-badges mt-1 d-flex gap-2 flex-wrap">
+                  {{- if $isHero -}}<span class="badge hero">AWS Hero</span>{{- end -}}
+                  {{- if $isEmployee -}}<span class="badge employee">AWS Employee</span>{{- end -}}
+                  {{- if $isBuilder -}}<span class="badge builder">AWS Community Builder</span>{{- end -}}
                 </div>
               {{- end -}}
-              {{- if $location -}}
-                <div class="speaker-sub">{{ $location }} <span style="font-size:1.25em; line-height:1; display:inline-block; vertical-align:middle;">{{ partial "flag.html" (dict "location" $location "page" .) }}</span></div>
-              {{- end -}}
-            </div>
+              <!-- social links removed on list view -->
+              {{- $role := .Params.role -}}
+              {{- $company := .Params.company -}}
+              {{- $location := .Params.location -}}
+              <div class="meta-block">
+                {{- if or $headline (or $role $company) -}}
+                  <div class="speaker-sub">
+                    {{- if $headline -}}
+                      {{ $headlineDisplay }}
+                    {{- else -}}
+                      {{- if $role -}}{{ $role }}{{- end -}}{{- if and $role $company -}} @ {{- end -}}{{- if $company -}}{{ $company }}{{- end -}}
+                    {{- end -}}
+                  </div>
+                {{- end -}}
+                {{- if $location -}}
+                  <div class="speaker-sub">{{ $location }} <span style="font-size:1.25em; line-height:1; display:inline-block; vertical-align:middle;">{{ partial "flag.html" (dict "location" $location "page" .) }}</span></div>
+                {{- end -}}
+              </div>
+            </a>
           </div>
         </div>
       </div>
