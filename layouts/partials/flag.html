@@ -1,6 +1,8 @@
 {{- $loc := lower (default "" .location) -}}
 {{- $page := .page -}}
 {{- $isBalticCity := or (in $loc "tallinn") (or (in $loc "gdansk") (or (in $loc "gdańsk") (or (in $loc "gdynia") (or (in $loc "sopot") (or (in $loc "copenhagen") (or (in $loc "københavn") (or (in $loc "malmo") (or (in $loc "malmö") (or (in $loc "stockholm") (or (in $loc "helsinki") (or (in $loc "turku") (or (in $loc "riga") (or (in $loc "klaipeda") (in $loc "klaipėda")))))))))))))) -}}
+{{- /* Country-level Baltic membership (EU countries on Baltic Sea) */ -}}
+{{- $isBalticCountry := or (in $loc "poland") (or (in $loc "germany") (or (in $loc "denmark") (or (in $loc "sweden") (or (in $loc "finland") (or (in $loc "estonia") (or (in $loc "latvia") (in $loc "lithuania"))))))) -}}
 {{- if in $loc "estonia" -}}<span class="flag-emoji" aria-label="Estonia">🇪🇪</span>{{- end -}}
 {{- if in $loc "poland" -}}<span class="flag-emoji" aria-label="Poland">🇵🇱</span>{{- end -}}
 {{- if or (in $loc "italy") (in $loc "italia") -}}<span class="flag-emoji">🇮🇹</span>{{- end -}}
@@ -24,5 +26,5 @@
 {{- if in $loc "mexico" -}}<span class="flag-emoji">🇲🇽</span>{{- end -}}
 {{- if in $loc "slovakia" -}}<span class="flag-emoji">🇸🇰</span>{{- end -}}
 {{- /* explicit per-speaker override: if front matter sets baltic:true, also show wave */ -}}
-{{- if or $isBalticCity (and $page $page.Params.baltic) -}}<span class="baltic-emoji">🌊</span>{{- end -}}
+{{- if or (or $isBalticCity $isBalticCountry) (and $page $page.Params.baltic) -}}<span class="baltic-emoji">🌊</span>{{- end -}}
 
