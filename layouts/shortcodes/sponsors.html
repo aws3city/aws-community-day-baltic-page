@@ -30,8 +30,16 @@
         height: auto;
         object-fit: contain;
       }
-      /* Make gold sponsor logos larger (2x from previous) */
-      .sponsors.sponsors-gold .logo-box { height: 440px; }
+      /* Make gold sponsor logos larger, proportionally (wider columns + taller box) */
+      .sponsors.sponsors-gold .logo-box { height: 220px; }
+      /* widen gold columns at breakpoints */
+      .sponsors.sponsors-gold .col-6 { flex: 0 0 100%; max-width: 100%; }
+      @media (min-width: 768px) { /* md */
+        .sponsors.sponsors-gold .col-md-4 { flex: 0 0 66.6667%; max-width: 66.6667%; }
+      }
+      @media (min-width: 992px) { /* lg */
+        .sponsors.sponsors-gold .col-lg-3 { flex: 0 0 50%; max-width: 50%; }
+      }
       /* Per-brand tweaks */
       .sponsors.{{ $scopeClass }} .logo-box.logo-epam img,
       .sponsors.{{ $scopeClass }} .logo-box.logo-cloudsy img { max-height: 80%; }
