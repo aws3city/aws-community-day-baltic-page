@@ -6,6 +6,9 @@ format: "Workshop"
 level: "300"
 location: "Frankfurt, Germany"
 linkedin: ""
+tags:
+  - GenAI
+  - workshop
 ---
 
 Agentic AI with MCP and Strands SDK

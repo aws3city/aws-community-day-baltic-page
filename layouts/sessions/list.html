@@ -12,6 +12,10 @@
     .sessions-list .session-speaker{font-weight:700}
     .sessions-list .badge{border:0;background:rgba(255,255,255,.12);color:#fff;margin-right:.35rem}
     .sessions-list .badge.level{background:linear-gradient(90deg,#6c7a89,#93a1ad)}
+    .sessions-list .badge.level.l100{background:linear-gradient(90deg,#16a34a,#22c55e)}
+    .sessions-list .badge.level.l200{background:linear-gradient(90deg,#2563eb,#60a5fa)}
+    .sessions-list .badge.level.l300{background:linear-gradient(90deg,#6f42c1,#a78bfa)}
+    .sessions-list .badge.level.l400{background:linear-gradient(90deg,#ef4444,#f97316)}
     .sessions-list .badge.format{background:linear-gradient(90deg,#ff9900,#6f42c1)}
     .sessions-list .badge.tag{background:rgba(255,255,255,.18)}
     .sessions-list .session-meta{color:rgba(255,255,255,.75)}
@@ -35,7 +39,8 @@
                 <div class="session-title h5 m-0">{{ .Params.summary }}</div>
                 <div class="mt-2">
                   {{- with .Params.format -}}<span class="badge format">{{ . }}</span>{{- end -}}
-                  {{- with .Params.level -}}<span class="badge level">Level {{ . }}</span>{{- end -}}
+                  {{- $lvlStr := printf "%v" .Params.level -}}
+                  {{- if $lvlStr }}<span class="badge level {{ cond (eq $lvlStr "100") "l100" (cond (eq $lvlStr "200") "l200" (cond (eq $lvlStr "300") "l300" (cond (eq $lvlStr "400") "l400" ""))) }}">Level {{ $lvlStr }}</span>{{- end -}}
                   {{- range .Params.tags }}<span class="badge tag">{{ . }}</span>{{- end }}
                 </div>
                 {{- with .Content -}}<div class="mt-3 session-meta">{{ . | plainify | truncate 360 }}</div>{{- end -}}
