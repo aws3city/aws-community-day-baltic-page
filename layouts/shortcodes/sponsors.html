@@ -30,6 +30,9 @@
         height: auto;
         object-fit: contain;
       }
+      /* Per-brand tweaks */
+      .sponsors.{{ $scopeClass }} .logo-box.logo-epam img,
+      .sponsors.{{ $scopeClass }} .logo-box.logo-cloudsy img { max-height: 80%; }
       /* Hover glows by category */
       .sponsors.sponsors-gold a:hover .logo-box { box-shadow: 0 0 0 3px #d4af37, 0 0 18px 8px rgba(212,175,55,.6); }
       .sponsors.sponsors-bronze a:hover .logo-box { box-shadow: 0 0 0 3px #cd7f32, 0 0 18px 8px rgba(205,127,50,.6); }
@@ -45,10 +48,11 @@
         {{- $logo = .Resources.GetMatch "img/*" -}}
       {{- end -}}
       {{- $href := .Params.website | default .RelPermalink -}}
+      {{- $slug := urlize .Title -}}
       <div class="col-6 col-md-4 col-lg-3 text-center">
         <a href="{{ $href }}" target="_blank" rel="noopener" class="d-inline-block p-2 w-100">
           {{- if $logo -}}
-            <div class="logo-box">
+            <div class="logo-box logo-{{ $slug }}">
               <img src="{{ $logo.RelPermalink }}" alt="{{ .Title }} logo" loading="lazy" />
             </div>
           {{- else -}}
