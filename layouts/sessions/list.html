@@ -27,7 +27,8 @@
 
   <div class="row g-3 sessions-list">
     {{- $all := where site.RegularPages "Section" "speakers" -}}
-    {{- $items := where $all ".Params.summary" "ne" "" -}}
+    {{- $nonKeynotes := where $all ".Params.format" "!=" "Keynote" -}}
+    {{- $items := where $nonKeynotes ".Params.summary" "ne" "" -}}
     {{- range $items -}}
       {{- $photo := .Resources.GetMatch "img/photo*" -}}
       {{- if not $photo -}}{{- $photo = .Resources.GetMatch "img/*" -}}{{- end -}}
