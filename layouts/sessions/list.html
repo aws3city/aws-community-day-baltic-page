@@ -112,6 +112,14 @@
               {{- if $headline -}}<div class="session-meta">{{ $headline }}</div>{{- end -}}
             </div>
           </div>
+
+          {{- /* Dodatkowy wiersz z metadanymi czasu/sali/itp. */ -}}
+          <div class="row mt-3">
+            <div class="col session-meta">
+              {{- with $s.Date }}🕒 {{ . | time.Format "2006-01-02 15:04" }}{{- end -}}
+              {{- with $s.Params.room }} &nbsp;•&nbsp; 📍 {{ . }}{{- end -}}
+            </div>
+          </div>
         </div>
       </a>
     </div>
