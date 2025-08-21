@@ -13,9 +13,3 @@ community_builder: true
 ---
 
 Dedicated and hardworking individual with over 10 years of experience and strong focus on Linux system engineering, security and automation.
-
-Everything* as Code
-
-In this session I talk about all things that can be represented as code: starting from the very basic software and ending modern approaches such as infrastructure as code and observability as code.
-
-

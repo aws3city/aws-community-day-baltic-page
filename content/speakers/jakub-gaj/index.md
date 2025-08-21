@@ -9,7 +9,3 @@ linkedin: "https://linkedin.com/in/jakubgaj/"
 blog: "https://serverless.ninja"
 company_website: "https://serverless.ninja"
 ---
-
-Examples of functionless (a.k.a. Lambda-less) integration pattern, where a direct integration between two AWS services is configured instead of using custom code in an intermediary Lambda function, based on Step Functions, AppSync, EventBridge.
-
-
