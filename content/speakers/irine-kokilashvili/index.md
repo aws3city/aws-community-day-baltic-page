@@ -11,9 +11,3 @@ community_builder: true
 ---
 
 Platform Engineer at Space International during the day, tinkerer during the night.
-
-EKS Hybrid Nodes with Raspberry Pi
-
-This session is about pushing boundaries with AWS hybrid architectures. We’ll explore how to combine Raspberry Pi nodes, EKS, DMS, and generative AI for smarter data transfer and flexible hybrid setups. It’s a practical and innovative way to handle complex workloads on a budget.
-
-
