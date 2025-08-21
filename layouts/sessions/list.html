@@ -28,26 +28,24 @@
 <div class="mt-3">
   <div class="container">
     <div class="row g-3 sessions-list">
-      {{/* 1) Preferuj sekcję "sessions" jeśli istnieje */}}
       {{- $sessions := where site.RegularPages "Section" "sessions" -}}
-      {{- if gt (len $sessions) 0 -}}
-        {{- range $sessions.ByDate -}}
-          <div class="col-12">
-            {{ partial "session-card.html" . }}
-          </div>
-        {{- end -}}
-      {{- else -}}
-        {{/* 2) Fallback: buduj listę ze "speakers" (bez Keynote/Organizational, z summary) */}}
-        {{- $all := where site.RegularPages "Section" "speakers" -}}
-        {{- $nonKeynotes := where $all ".Params.format" "not in" (slice "Keynote" "Organizational") -}}
-        {{- $items := where $nonKeynotes ".Params.summary" "ne" "" -}}
-        {{- range $items.ByDate -}}
-          <div class="col-12">
-            {{ partial "session-card.html" . }}
-          </div>
-        {{- end -}}
+      {{- range $sessions.ByDate -}}
+        <div class="col-12">
+          {{ partial "session-card.html" . }}
+        </div>
       {{- end -}}
     </div>
   </div>
 </div>
+
+<!-- <div class="mt-3">
+    <div class="container">
+        <div class="row gap-2">
+            {{ range .Page.Pages.ByDate }}
+                {{ partial "session" . }}
+            {{ end }}
+        </div>
+    </div>
+</div> -->
+
 {{ end }}
