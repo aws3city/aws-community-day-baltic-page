@@ -5,7 +5,6 @@
       <h1 class="h2 m-0">{{ .Title }}</h1>
     </div>
   </div>
-
 <style>
   .sessions-list .session-card{background:#1b2635;border-radius:.75rem;padding:1.25rem 1.5rem;height:100%;box-shadow:0 0 0 0 rgba(0,0,0,.2)}
   .sessions-list .session-title{font-weight:700}
@@ -23,15 +22,25 @@
   .sessions-list a.card-link:hover .session-title{text-decoration:underline}
   .sessions-list .avatar{width:64px;height:64px;border-radius:9999px;background:#17202c;overflow:hidden;display:inline-block}
   .sessions-list .avatar img{width:100%;height:100%;object-fit:cover}
+
+  /* Multi-speaker avatars */
+  .sessions-list .avatar-group{display:inline-flex;align-items:center}
+  .sessions-list .avatar-sm{width:40px;height:40px;border-radius:9999px;overflow:hidden;background:#17202c;border:2px solid #1b2635}
+  .sessions-list .avatar-stack>span{margin-left:-10px;position:relative}
+  .sessions-list .avatar-initials{width:40px;height:40px;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#9fb3c8;background:#17202c;border:2px solid #1b2635}
 </style>
 
 <div class="row g-3 sessions-list">
-  {{- /* Bierzemy strony z sekcji sessions; jeśli chcesz — odkomentuj sortowanie */ -}}
+  {{- /* 1) Weź sessions i odfiltruj Keynote/Organizational */ -}}
   {{- $items := where .Pages ".Params.format" "not in" (slice "Keynote" "Organizational") -}}
-  {{- $items = sort $items ".Date" "asc" -}}
 
+  {{- /* 2) Sortowanie – zmień na ".Params.agenda" jeśli wolisz ręczne sloty */ -}}
+  {{- $items = sort $items ".Date" "asc" -}}
+  {{- /* np.: $items = sort $items ".Params.agenda" "asc" */ -}}
+
+  {{- /* 3) Przeleć po sesjach */ -}}
   {{- range $s := $items -}}
-    {{- /* Tytuł karty = summary (jeśli jest), w przeciwnym razie Title sesji */ -}}
+    {{- /* Tytuł karty: preferuj summary jak w wersji "speakers" */ -}}
     {{- $cardTitle := default $s.Title $s.Params.summary -}}
 
     {{- /* Badges */ -}}
@@ -39,23 +48,24 @@
     {{- $lvlStr := printf "%v" $s.Params.level -}}
     {{- $tags := $s.Params.tags -}}
 
-    {{- /* Resolve speakers po slugach */ -}}
+    {{- /* Resolve speakers po slugach (działa dla _index/index/slug.md) */ -}}
     {{- $speakerSlugs := $s.Params.speakers | default (slice) -}}
     {{- $speakerPages := slice -}}
+    {{- $allSpeakers := where site.Pages "Section" "speakers" -}}
     {{- range $speakerSlugs }}
-      {{- $p := site.GetPage (printf "speakers/%s" .) -}}
+      {{- $slug := . -}}
+      {{- $fromGetPage := site.GetPage (printf "speakers/%s" $slug) -}}
+      {{- $fallback := index (where $allSpeakers ".File.TranslationBaseName" $slug) 0 -}}
+      {{- $p := or $fromGetPage $fallback -}}
       {{- if $p }}{{- $speakerPages = $speakerPages | append $p -}}{{- end -}}
     {{- end -}}
 
-    {{- /* Dane do prawej kolumny: nazwy prelegentów i headline z pierwszego */ -}}
-    {{- $primary := index $speakerPages 0 -}}
+    {{- /* Nazwy i headline */ -}}
     {{- $speakerNames := slice -}}
     {{- range $speakerPages }}{{- $speakerNames = $speakerNames | append .Title -}}{{- end -}}
     {{- $speakerNamesStr := delimit $speakerNames ", " -}}
+    {{- $primary := cond (gt (len $speakerPages) 0) (index $speakerPages 0) nil -}}
     {{- $headline := cond (not $primary) "" $primary.Params.headline -}}
-
-    {{- /* Foto pierwszego prelegenta (jak w wersji speakers) */ -}}
-    {{- $photo := cond (not $primary) nil (or ($primary.Resources.GetMatch "img/photo*") ($primary.Resources.GetMatch "img/*")) -}}
 
     <div class="col-12">
       <a class="card-link" href="{{ $s.RelPermalink }}">
@@ -72,19 +82,44 @@
                 {{- end -}}
                 {{- range $tags }}<span class="badge tag">{{ . }}</span>{{- end }}
               </div>
-              {{- /* Tekst jak w speakers: Content plainify + truncate 360, ale daj preferencję dla .Params.summary jeśli chcesz krótki opis */ -}}
               {{- if $s.Params.summary -}}
                 <div class="mt-3 session-meta">{{ $s.Params.summary }}</div>
               {{- else if $s.Content -}}
                 <div class="mt-3 session-meta">{{ $s.Content | plainify | truncate 360 }}</div>
               {{- end -}}
             </div>
+
             <div class="col-12 col-md-3 text-md-end">
-              <span class="avatar mb-2">
-                {{- if $photo -}}<img src="{{ $photo.RelPermalink }}" alt="{{ $speakerNamesStr | default $s.Title }}" />{{- end -}}
-              </span>
+              <div class="avatar-group avatar-stack mb-2">
+                {{- $maxAv := 3 -}}
+                {{- $count := len $speakerPages -}}
+                {{- range $i, $sp := first $maxAv $speakerPages }}
+                  {{- $photo := or ($sp.Resources.GetMatch "img/photo*") ($sp.Resources.GetMatch "img/*") -}}
+                  <span title="{{ $sp.Title }}">
+                    {{- if $photo -}}
+                      <img class="avatar-sm" src="{{ $photo.RelPermalink }}" alt="{{ $sp.Title }}">
+                    {{- else -}}
+                      <span class="avatar-initials">{{ (substr $sp.Title 0 1) | upper }}</span>
+                    {{- end -}}
+                  </span>
+                {{- end -}}
+                {{- if gt $count $maxAv -}}
+                  <span><span class="avatar-initials">+{{ sub $count $maxAv }}</span></span>
+                {{- end -}}
+              </div>
+
               {{- if $speakerNamesStr -}}<div class="session-speaker">{{ $speakerNamesStr }}</div>{{- end -}}
               {{- if $headline -}}<div class="session-meta">{{ $headline }}</div>{{- end -}}
+            </div>
+          </div>
+
+          {{- /* Dodatkowy wiersz z metadanymi czasu/sali/itp. */ -}}
+          <div class="row mt-3">
+            <div class="col session-meta">
+              {{- with $s.Date }}🕒 {{ . | time.Format "2006-01-02 15:04" }}{{- end -}}
+              {{- with $s.Params.room }} &nbsp;•&nbsp; 📍 {{ . }}{{- end -}}
+              {{- with $s.Params.agenda }} &nbsp;•&nbsp; 📄 Agenda: {{ . }}{{- end -}}
+              {{- with $s.Params.sponsors }} &nbsp;•&nbsp; 🤝 Sponsors: {{ delimit . ", " }}{{- end -}}
             </div>
           </div>
         </div>
