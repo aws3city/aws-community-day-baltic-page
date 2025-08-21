@@ -9,6 +9,7 @@ linkedin: ""
 tags:
   - GenAI
   - workshop
+aws_employee: true
 ---
 
 Agentic AI with MCP and Strands SDK
