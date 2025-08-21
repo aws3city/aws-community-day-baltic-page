@@ -26,13 +26,75 @@
 </style>
 
 <div class="mt-3">
-    <div class="container">
-        <div class="row gap-2">
-            {{ range .Page.Pages.ByDate }}
-                {{ partial "session" . }}
-            {{ end }}
-        </div>
-    </div>
-</div>
+  <div class="container">
+    <div class="row g-3 sessions-list">
+      {{- $sessions := .Pages -}}
+      {{- $sessions = sort $sessions ".Date" "asc" -}}
 
+      {{- range $s := $sessions -}}
+        {{- $talkTitle := $s.Title -}}
+        {{- $level := printf "%v" ($s.Params.level | default "") -}}
+        {{- $format := $s.Params.format -}}
+        {{- $tags := $s.Params.tags -}}
+        {{- $summary := $s.Params.summary -}}
+
+        {{- $speakerSlugs := $s.Params.speakers | default (slice) -}}
+        {{- $speakerPages := slice -}}
+        {{- range $speakerSlugs }}
+          {{- $p := site.GetPage (printf "speakers/%s" .) -}}
+          {{- if $p }}{{- $speakerPages = $speakerPages | append $p -}}{{- end -}}
+        {{- end -}}
+
+        {{- $primary := index $speakerPages 0 -}}
+        {{- $speakerNames := slice -}}
+        {{- range $speakerPages }}{{- $speakerNames = $speakerNames | append .Title -}}{{- end -}}
+        {{- $speakerNamesStr := delimit $speakerNames ", " -}}
+
+        {{- $photo := cond (not $primary) nil (or ($primary.Resources.GetMatch "img/photo*") ($primary.Resources.GetMatch "img/*")) -}}
+
+        <div class="col-12">
+          <a class="card-link" href="{{ $s.RelPermalink }}">
+            <div class="session-card">
+              <div class="row g-3 align-items-center">
+                <div class="col-12 col-md-9">
+                  <div class="session-title h5 m-0">{{ $talkTitle }}</div>
+                  <div class="mt-2">
+                    {{- with $format -}}<span class="badge format">{{ . }}</span>{{- end -}}
+                    {{- if $level }}
+                      <span class="badge level {{ cond (eq $level "100") "l100" (cond (eq $level "200") "l200" (cond (eq $level "300") "l300" (cond (eq $level "400") "l400" ""))) }}">
+                        Level {{ $level }}
+                      </span>
+                    {{- end -}}
+                    {{- range $tags }}<span class="badge tag">{{ . }}</span>{{- end }}
+                  </div>
+                  {{- if $summary -}}
+                    <div class="mt-3 session-meta">{{ $summary }}</div>
+                  {{- else if $s.Content -}}
+                    <div class="mt-3 session-meta">{{ $s.Content | plainify | truncate 360 }}</div>
+                  {{- end -}}
+                </div>
+                <div class="col-12 col-md-3 text-md-end">
+                  <span class="avatar mb-2">
+                    {{- if $photo -}}<img src="{{ $photo.RelPermalink }}" alt="{{ $speakerNamesStr | default $talkTitle }}" />{{- end -}}
+                  </span>
+                  {{- if $speakerNamesStr -}}<div class="session-speaker">{{ $speakerNamesStr }}</div>{{- end -}}
+                  {{- with $primary.Params.headline -}}<div class="session-meta">{{ . }}</div>{{- end -}}
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col session-meta">
+                  {{- with $s.Date }}🕒 {{ . | time.Format "2006-01-02 15:04" }}{{- end -}}
+                  {{- with $s.Params.room }} &nbsp;•&nbsp; 📍 {{ . }}{{- end -}}
+                  {{- with $s.Params.agenda }} &nbsp;•&nbsp; 📄 Agenda: {{ . }}{{- end -}}
+                  {{- with $s.Params.sponsors }} &nbsp;•&nbsp; 🤝 Sponsors: {{ delimit . ", " }}{{- end -}}
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      {{- end -}}
+    </div>
+  </div>
+</div>
 {{ end }}
