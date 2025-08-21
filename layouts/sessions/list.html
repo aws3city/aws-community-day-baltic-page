@@ -108,8 +108,8 @@
                 {{- end -}}
             </div>
 
-            {{- if $speakerNamesStr -}}<div class="session-speaker">{{ $speakerNamesStr }}</div>{{- end -}}
             {{- range $sp := $speakerPages }}
+                <div class="session-speaker">{{ $sp.Title }}</div>
                 {{- with $sp.Params.headline }}
                 <div class="session-meta">{{ . }}</div>
                 {{- end -}}
