@@ -28,7 +28,7 @@
 <div class="row g-3 sessions-list">
   {{- /* Bierzemy strony z sekcji sessions; jeśli chcesz — odkomentuj sortowanie */ -}}
   {{- $items := where .Pages ".Params.format" "not in" (slice "Keynote" "Organizational") -}}
-  {{- /* $items = sort $items ".Date" "asc" */ -}}
+  {{- $items = sort $items ".Date" "asc" -}}
 
   {{- range $s := $items -}}
     {{- /* Tytuł karty = summary (jeśli jest), w przeciwnym razie Title sesji */ -}}
