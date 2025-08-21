@@ -3,6 +3,7 @@ title: "Szymon Sołtys"
 headline: "Senior DevOps Engineer, Transition Technologies"
 summary: "DynamoDB Demystified – Core Features & the Single-Table Design"
 format: "Session"
+level: "200"
 location: "Wrocław, Poland"
 linkedin: "https://linkedin.com/in/szymonsoltys/"
 ---
