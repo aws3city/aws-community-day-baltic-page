@@ -6,6 +6,9 @@ speakers:
     - "anton-antanovich"
     - "suzana-melo"
 room: "auditorium"
+format: "Organizational" 
+level: "100"
+tags: [""]
 sponsors: 
     - "aws"
 agenda: "open-event"
