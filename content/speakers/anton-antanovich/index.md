@@ -1,6 +1,8 @@
 ---
 title: "Anton Antanovich"
 headline: "AWS UG 3City Leader — Gdańsk, Poland"
+summary: "Kickoff / Close event"
+level: "100"
 linkedin: "https://www.linkedin.com/in/antanovich3city/"
 role: "organizer"
 location: "Gdańsk, Poland"

@@ -1,6 +1,8 @@
 ---
 title: "Grzegorz Kalwig"
 headline: "AWS UG 3City Leader — Gdynia, Poland"
+summary: "Kickoff / Close event"
+level: "100"
 linkedin: "https://www.linkedin.com/in/grzegorz-kalwig/"
 role: "organizer"
 location: "Gdynia, Poland"
