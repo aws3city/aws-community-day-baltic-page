@@ -1,0 +1,10 @@
+---
+title: "From serverless to functionless"
+date: 2024-10-03T13:00:00
+speakers:
+    - "jakub-gaj"
+room: "cinema"
+sponsors: 
+    - "aws"
+agenda: "13"
+---
