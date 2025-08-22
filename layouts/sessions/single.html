@@ -98,27 +98,6 @@
       <!-- Sidebar: prelegenci -->
       <div class="col-12 col-lg-4">
         {{- if gt (len $speakerPages) 0 -}}
-          <!-- Pasek zbiorczy avatarów (opcjonalny) -->
-          <div class="session-card mb-3">
-            <div class="avatar-group avatar-stack">
-              {{- $maxAv := 4 -}}
-              {{- $count := len $speakerPages -}}
-              {{- range $i, $sp := first $maxAv $speakerPages }}
-                {{- $photo := or ($sp.Resources.GetMatch "img/photo*") ($sp.Resources.GetMatch "img/*") -}}
-                <span title="{{ $sp.Title }}">
-                  {{- if $photo -}}
-                    <img class="avatar-sm" src="{{ $photo.RelPermalink }}" alt="{{ $sp.Title }}">
-                  {{- else -}}
-                    <span class="avatar-initials">{{ (substr $sp.Title 0 1) | upper }}</span>
-                  {{- end -}}
-                </span>
-              {{- end -}}
-              {{- if gt $count $maxAv -}}
-                <span><span class="avatar-initials">+{{ sub $count $maxAv }}</span></span>
-              {{- end -}}
-            </div>
-          </div>
-
           <!-- Kafelki każdego speakera: imię, headline, opis/link -->
           {{- range $sp := $speakerPages }}
             {{- $photo := or ($sp.Resources.GetMatch "img/photo*") ($sp.Resources.GetMatch "img/*") -}}
@@ -133,7 +112,7 @@
                 </div>
               </div>
               {{- with $sp.Params.bio -}}<div class="session-meta">{{ . }}</div>{{- end -}}
-              <a class="no-underline d-inline-block mt-2" href="{{ $sp.RelPermalink }}">Zobacz profil prelegenta →</a>
+              <a class="no-underline d-inline-block mt-2" href="{{ $sp.RelPermalink }}">Speaker Profile →</a>
             </div>
           {{- end -}}
         {{- end -}}
