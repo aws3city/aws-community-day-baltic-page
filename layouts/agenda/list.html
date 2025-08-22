@@ -36,7 +36,7 @@
     </div>
   </div>
 
-  {{- $slots := .Pages | sort ".Title" "asc" -}}
+  {{- $slots := .Pages.ByTitle -}}
   {{- $allSessions := where site.RegularPages "Section" "sessions" -}}
   {{- /* jeśli chcesz globalnie ukrywać level dla Keynote/Organizational — robimy to per kartę niżej */ -}}
 
