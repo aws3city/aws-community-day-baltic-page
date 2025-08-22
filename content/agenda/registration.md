@@ -1,3 +1,4 @@
 ---
-title: "08:30 - 09:00 Registration"
+title: "08:30 - 09:00"
+summary: Registration
 ---
