@@ -1,9 +1,7 @@
 ---
 title: "Kirill Solovei"
 headline: "Senior Systems Engineer"
-summary: "Everything* as Code"
 format: "Session"
-level: "100"
 location: "Gdańsk, Poland"
 linkedin: "https://linkedin.com/in/hatedabamboo/"
 blog: "https://notes.hatedabamboo.me"

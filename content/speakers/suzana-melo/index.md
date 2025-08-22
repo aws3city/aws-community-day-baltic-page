@@ -1,9 +1,7 @@
 ---
 title: "Suzana Melo"
 headline: "Software Developer | Women in Tech advocate | AWS Community Builder | Communicator"
-summary: "From Procrastination to Publishing: How AWS Amplify Helped Me Finally Start Blogging"
 format: "Session"
-level: "200"
 location: "Malmö, Sweden"
 twitter: "https://x.com/suzanamelojor"
 linkedin: "https://linkedin.com/in/suzanamelomoraes/"

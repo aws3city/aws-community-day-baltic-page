@@ -1,9 +1,7 @@
 ---
 title: "Socrates Ruiz"
 headline: "Principal Cloud Architect at Data Insights | AWS Community Builder"
-summary: "Back to the network: AWS DeLorean at 88 MPH"
 format: "Session"
-level: "200"
 location: "Munich, Germany"
 linkedin: "https://linkedin.com/in/socrates-ruiz-s"
 blog: "https://dev.to/socratesr"

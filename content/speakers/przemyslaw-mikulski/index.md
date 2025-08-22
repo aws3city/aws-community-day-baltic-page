@@ -1,9 +1,7 @@
 ---
 title: "Przemysław Mikulski"
 headline: "Co-Founder, Data and Cloud Architect, Kodlot ApS"
-summary: "Self-Healing Data Platforms – 3A’s: Automation, AI, and Alignment"
 format: "Session"
-level: "300"
 location: "Copenhagen, Denmark"
 linkedin: "https://linkedin.com/in/przemyslaw-mikulski/"
 company_website: "https://kodlot.com"

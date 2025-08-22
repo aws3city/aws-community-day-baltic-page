@@ -1,9 +1,7 @@
 ---
 title: "Vadym Kazulkin"
 headline: "Head of Development @ ip.labs | AWS Serverless Hero"
-summary: "Event-driven architecture patterns in highly scalable image storage solution"
 format: "Session"
-level: "300"
 location: "Cologne, Germany"
 linkedin: "https://linkedin.com/in/vadymkazulkin/"
 twitter: "https://x.com/VKazulkin"

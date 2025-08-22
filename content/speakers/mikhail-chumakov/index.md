@@ -1,9 +1,7 @@
 ---
 title: "Mikhail Chumakov"
 headline: "Senior Software Engineer & Cloud Community Leader at Capgemini | AWS Community Builder"
-summary: "Improve action house search with vector capabilities: Bedrock or SageMaker Serverless inference."
 format: "Session"
-level: "300"
 location: "Prague, Czech Republic"
 linkedin: "https://linkedin.com/in/mikhail-chumakov"
 blog: "https://medium.com/@zordark"

@@ -1,9 +1,7 @@
 ---
 title: "Darya Petrashka"
 headline: "Data Scientist at SLB | AWS Community Builder"
-summary: "RAG Without Breaking the Bank: Create a Bedrock Agent with S3 Vector-Powered Knowledge Bases"
 format: "Session"
-level: "200"
 location: "Szczytno, Poland"
 linkedin: "https://linkedin.com/in/daryapetrashka/"
 blog: "https://medium.com/@darya_petrashka"

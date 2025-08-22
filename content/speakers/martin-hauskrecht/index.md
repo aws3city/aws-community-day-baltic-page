@@ -1,9 +1,7 @@
 ---
 title: "Martin Hauskrecht"
 headline: "Head of Engineering at Labyrinth Labs"
-summary: "There Are No Magic Tricks in Cloud Cost Optimization"
 format: "Session"
-level: "200"
 location: "Bratislava, Slovakia"
 company_website: "https://lablabs.io/"
 ---

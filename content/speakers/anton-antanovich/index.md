@@ -1,7 +1,6 @@
 ---
 title: "Anton Antanovich"
 headline: "AWS UG 3City Leader — Gdańsk, Poland"
-summary: "Kickoff / Close event"
 format: "Organizational"
 linkedin: "https://www.linkedin.com/in/antanovich3city/"
 role: "organizer"
