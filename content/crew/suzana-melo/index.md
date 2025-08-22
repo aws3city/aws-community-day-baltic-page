@@ -1,5 +1,5 @@
 ---
-title: "Suzana Melo Moraes"
+title: "Suzana Melo"
 headline: "Malmö, Sweden"
 linkedin: "https://www.linkedin.com/in/suzanamelomoraes/"
 role: "organizer"
