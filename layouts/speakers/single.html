@@ -63,13 +63,14 @@
 
         {{/* Linki społecznościowe / WWW */}}
         <div class="links mt-3">
-          {{- with .Params.linkedin }}<a class="text-reset" href="{{ . }}" rel="noopener">LinkedIn</a>{{- end -}}
-          {{- with .Params.twitter }}<a class="text-reset" href="{{ . }}" rel="noopener">Twitter/X</a>{{- end -}}
-          {{- with .Params.bluesky }}<a class="text-reset" href="{{ . }}" rel="noopener">Bluesky</a>{{- end -}}
-          {{- with .Params.github }}<a class="text-reset" href="{{ . }}" rel="noopener">GitHub</a>{{- end -}}
-          {{- with .Params.blog }}<a class="text-reset" href="{{ . }}" rel="noopener">Blog</a>{{- end -}}
-          {{- with .Params.company_website }}<a class="text-reset" href="{{ . }}" rel="noopener">Company</a>{{- end -}}
-          {{- with .Params.slideshare }}<a class="text-reset" href="{{ . }}" rel="noopener">SlideShare</a>{{- end -}}
+            {{- with .Params.linkedin -}}<a href="{{ . }}" target="_blank" rel="noopener" title="LinkedIn">🔗</a>{{- end -}}
+            {{- with .Params.twitter -}}<a href="{{ . }}" target="_blank" rel="noopener" title="X / Twitter">𝕏</a>{{- end -}}
+            {{- with .Params.website -}}<a href="{{ . }}" target="_blank" rel="noopener" title="Website">🌐</a>{{- end -}}
+            {{- with .Params.blog -}}<a href="{{ . }}" target="_blank" rel="noopener" title="Blog">📝</a>{{- end -}}
+            {{- with .Params.instagram -}}<a href="{{ . }}" target="_blank" rel="noopener" title="Instagram">📸</a>{{- end -}}
+            {{- with .Params.github -}}<a href="{{ . }}" target="_blank" rel="noopener" title="GitHub">🐙</a>{{- end -}}
+            {{- with .Params.slideshare -}}<a href="{{ . }}" target="_blank" rel="noopener" title="SlideShare">📑</a>{{- end -}}
+            {{- with .Params.bluesky -}}<a href="{{ . }}" target="_blank" rel="noopener" title="Bluesky">🌀</a>{{- end -}}
         </div>
 
         {{/* Krótki bio z parametrów (jeśli trzymasz jako param) – opcjonalnie */}}
