@@ -1,7 +1,6 @@
-{{ define "main" }}
-
-{{/* ===== STYLES spójne z listą sesji ===== */}}
+{{/* ====== STYLE (spójny z listą sesji + layout “tabeli”) ====== */}}
 <style>
+  /* karta sesji - jak w listach */
   .sessions-list .session-card{background:#1b2635;border-radius:.75rem;padding:1.25rem 1.5rem;height:100%;box-shadow:0 0 0 0 rgba(0,0,0,.2)}
   .sessions-list .session-title{font-weight:700}
   .sessions-list .session-speaker{font-weight:700}
@@ -18,11 +17,18 @@
   .sessions-list a.card-link:hover .session-title{text-decoration:underline}
   .sessions-list .avatar{width:64px;height:64px;border-radius:9999px;background:#17202c;overflow:hidden;display:inline-block}
   .sessions-list .avatar img{width:100%;height:100%;object-fit:cover}
-  /* Multi-speaker avatars */
+
+  /* multi-speaker avatars */
   .sessions-list .avatar-group{display:inline-flex;align-items:center}
   .sessions-list .avatar-sm{width:40px;height:40px;border-radius:9999px;overflow:hidden;background:#17202c;border:2px solid #1b2635}
   .sessions-list .avatar-stack>span{margin-left:-10px;position:relative}
   .sessions-list .avatar-initials{width:40px;height:40px;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#9fb3c8;background:#17202c;border:2px solid #1b2635}
+
+  /* layout agendy jako “wiersze tabeli” */
+  .agenda-row{border-bottom:1px solid rgba(255,255,255,.08);padding:1rem 0}
+  .agenda-left{min-width:220px}
+  .agenda-slot{font-weight:700}
+  .agenda-left .slot-meta{color:rgba(255,255,255,.75)}
 </style>
 
 <div class="container py-5">
@@ -32,111 +38,117 @@
     </div>
   </div>
 
-  {{/* Pobierz wszystkie sloty agendy (podstrony sekcji agenda) i posortuj je */}}
+  {{/* 1) Sloty agendy = podstrony w content/agenda/ */}}
   {{- $slots := .Pages -}}
-  {{- /* Zmień sortowanie slotów, jeśli używasz weight/tytułów w innej konwencji: */ -}}
+  {{- /* sortuj sloty: po Title, zmień na Weight jeśli używasz weightów */ -}}
   {{- $slots = sort $slots ".Title" "asc" -}}
 
-  {{- /* Preload: wszystkie sesje (można też filtrować po formacie) */ -}}
+  {{/* 2) Preload wszystkich sesji */}}
   {{- $allSessions := where site.RegularPages "Section" "sessions" -}}
-  {{- /* Jeśli chcesz wykluczyć Keynote/Organizational, odkomentuj: */ -}}
-  {{- /* $allSessions = where $allSessions ".Params.format" "not in" (slice "Keynote" "Organizational") */ -}}
 
+  {{/* 3) Pętla po slotach (wiersz tabeli: lewa kolumna slot, prawa lista sesji) */}}
   {{- range $slot := $slots -}}
-    {{- $slotKey := $slot.File.ContentBaseName -}} {{/* np. "11" lub "09-00" */}}
+    {{- $slotKey := $slot.File.ContentBaseName -}}
     {{- $slotSessions := where $allSessions ".Params.agenda" $slotKey -}}
     {{- if gt (len $slotSessions) 0 -}}
-      <div class="row mb-2">
-        <div class="col-12">
-          <h2 class="h4 m-0">
+      <div class="row agenda-row">
+        <!-- lewa kolumna: nazwa/range czasu slotu -->
+        <div class="col-12 col-md-3 agenda-left">
+          <div class="agenda-slot">
             <a class="text-reset text-decoration-none" href="{{ $slot.RelPermalink }}">{{ $slot.Title }}</a>
-          </h2>
-        </div>
-      </div>
-
-      <div class="row g-3 sessions-list mb-4">
-        {{- /* Sortuj sesje w slotcie po czasie (lub po sali/tytule wedle potrzeb) */ -}}
-        {{- $slotSessions = sort $slotSessions ".Date" "asc" -}}
-        {{- range $s := $slotSessions -}}
-          {{- /* Dane karty */ -}}
-          {{- $cardTitle := default $s.Title $s.Params.summary -}}
-          {{- $format := $s.Params.format -}}
-          {{- $lvlStr := printf "%v" $s.Params.level -}}
-          {{- $tags := $s.Params.tags -}}
-
-          {{- /* Sala: weź tytuł strony rooms/<slug> jeśli istnieje */ -}}
-          {{- $roomSlug := $s.Params.room -}}
-          {{- $roomPage := cond (not $roomSlug) nil (site.GetPage (printf "rooms/%s" $roomSlug)) -}}
-
-          {{- /* Resolve speakers */ -}}
-          {{- $speakerSlugs := $s.Params.speakers | default (slice) -}}
-          {{- $speakerPages := slice -}}
-          {{- $allSpeakers := where site.Pages "Section" "speakers" -}}
-          {{- range $speakerSlugs }}
-            {{- $slug := . -}}
-            {{- $fromGetPage := site.GetPage (printf "speakers/%s" $slug) -}}
-            {{- $fallback := index (where $allSpeakers ".File.TranslationBaseName" $slug) 0 -}}
-            {{- $p := or $fromGetPage $fallback -}}
-            {{- if $p }}{{- $speakerPages = $speakerPages | append $p -}}{{- end -}}
-          {{- end -}}
-          {{- $speakerNames := slice -}}
-          {{- range $speakerPages }}{{- $speakerNames = $speakerNames | append .Title -}}{{- end -}}
-          {{- $speakerNamesStr := delimit $speakerNames ", " -}}
-
-          <div class="col-12">
-            <a class="card-link" href="{{ $s.RelPermalink }}">
-              <div class="session-card">
-                <div class="row g-3 align-items-center">
-                  <div class="col-12 col-md-9">
-                    <div class="session-title h5 m-0">{{ $cardTitle }}</div>
-                    <div class="mt-2">
-                      {{- with $format -}}<span class="badge format">{{ . }}</span>{{- end -}}
-                      {{- if $lvlStr }}
-                        <span class="badge level {{ cond (eq $lvlStr "100") "l100" (cond (eq $lvlStr "200") "l200" (cond (eq $lvlStr "300") "l300" (cond (eq $lvlStr "400") "l400" ""))) }}">
-                          Level {{ $lvlStr }}
-                        </span>
-                      {{- end -}}
-                      {{- range $tags }}<span class="badge tag">{{ . }}</span>{{- end }}
-                    </div>
-                    {{- if $s.Params.summary -}}
-                      <div class="mt-3 session-meta">{{ $s.Params.summary }}</div>
-                    {{- else if $s.Content -}}
-                      <div class="mt-3 session-meta">{{ $s.Content | plainify | truncate 360 }}</div>
-                    {{- end -}}
-                  </div>
-                  <div class="col-12 col-md-3 text-md-end">
-                    <div class="avatar-group avatar-stack mb-2">
-                      {{- $maxAv := 3 -}}
-                      {{- $count := len $speakerPages -}}
-                      {{- range $i, $sp := first $maxAv $speakerPages }}
-                        {{- $photo := or ($sp.Resources.GetMatch "img/photo*") ($sp.Resources.GetMatch "img/*") -}}
-                        <span title="{{ $sp.Title }}">
-                          {{- if $photo -}}
-                            <img class="avatar-sm" src="{{ $photo.RelPermalink }}" alt="{{ $sp.Title }}">
-                          {{- else -}}
-                            <span class="avatar-initials">{{ (substr $sp.Title 0 1) | upper }}</span>
-                          {{- end -}}
-                        </span>
-                      {{- end -}}
-                      {{- if gt $count $maxAv -}}
-                        <span><span class="avatar-initials">+{{ sub $count $maxAv }}</span></span>
-                      {{- end -}}
-                    </div>
-
-                    {{- if $speakerNamesStr -}}<div class="session-speaker">{{ $speakerNamesStr }}</div>{{- end -}}
-                  </div>
-                </div>
-
-                <div class="row mt-3">
-                  <div class="col session-meta">
-                    {{- with $s.Date }}🕒 {{ . | time.Format "2006-01-02 15:04" }}{{- end -}}
-                    {{- with $roomPage }} &nbsp;•&nbsp; 📍 {{ .Title }}{{- end -}}
-                  </div>
-                </div>
-              </div>
-            </a>
           </div>
-        {{- end -}}
+          {{ with $slot.Params.subtitle }}
+            <div class="slot-meta">{{ . }}</div>
+          {{ end }}
+        </div>
+
+        <!-- prawa kolumna: sesje w tym czasie -->
+        <div class="col-12 col-md-9">
+          <div class="row g-3 sessions-list">
+            {{- /* sortuj sesje w slocie: najpierw po czasie, potem po sali; zmień wg potrzeb */ -}}
+            {{- $slotSessions = sort (sort $slotSessions ".Params.room" "asc") ".Date" "asc" -}}
+
+            {{- range $s := $slotSessions -}}
+              {{- $cardTitle := default $s.Title $s.Params.summary -}}
+              {{- $format := $s.Params.format -}}
+              {{- $lvlStr := printf "%v" $s.Params.level -}}
+              {{- $tags := $s.Params.tags -}}
+              {{- $hideLevel := or (eq $format "Keynote") (eq $format "Organizational") -}}
+
+              {{- /* sala: tytuł strony rooms/<slug> jeśli jest */ -}}
+              {{- $roomSlug := $s.Params.room -}}
+              {{- $roomPage := cond (not $roomSlug) nil (site.GetPage (printf "rooms/%s" $roomSlug)) -}}
+
+              {{- /* speakerzy */ -}}
+              {{- $speakerSlugs := $s.Params.speakers | default (slice) -}}
+              {{- $speakerPages := slice -}}
+              {{- $allSpeakers := where site.Pages "Section" "speakers" -}}
+              {{- range $speakerSlugs }}
+                {{- $slug := . -}}
+                {{- $fromGetPage := site.GetPage (printf "speakers/%s" $slug) -}}
+                {{- $fallback := index (where $allSpeakers ".File.TranslationBaseName" $slug) 0 -}}
+                {{- $p := or $fromGetPage $fallback -}}
+                {{- if $p }}{{- $speakerPages = $speakerPages | append $p -}}{{- end -}}
+              {{- end -}}
+              {{- $speakerNames := slice -}}
+              {{- range $speakerPages }}{{- $speakerNames = $speakerNames | append .Title -}}{{- end -}}
+              {{- $speakerNamesStr := delimit $speakerNames ", " -}}
+
+              <div class="col-12">
+                <a class="card-link" href="{{ $s.RelPermalink }}">
+                  <div class="session-card">
+                    <div class="row g-3 align-items-center">
+                      <div class="col-12 col-md-9">
+                        <div class="session-title h5 m-0">{{ $cardTitle }}</div>
+                        <div class="mt-2">
+                          {{- with $format -}}<span class="badge format">{{ . }}</span>{{- end -}}
+                          {{- if and $lvlStr (not $hideLevel) -}}
+                            <span class="badge level {{ cond (eq $lvlStr "100") "l100" (cond (eq $lvlStr "200") "l200" (cond (eq $lvlStr "300") "l300" (cond (eq $lvlStr "400") "l400" ""))) }}">
+                              Level {{ $lvlStr }}
+                            </span>
+                          {{- end -}}
+                          {{- range $tags }}<span class="badge tag">{{ . }}</span>{{- end }}
+                        </div>
+                        {{- if $s.Params.summary -}}
+                          <div class="mt-3 session-meta">{{ $s.Params.summary }}</div>
+                        {{- else if $s.Content -}}
+                          <div class="mt-3 session-meta">{{ $s.Content | plainify | truncate 360 }}</div>
+                        {{- end -}}
+                      </div>
+                      <div class="col-12 col-md-3 text-md-end">
+                        <div class="avatar-group avatar-stack mb-2">
+                          {{- $maxAv := 3 -}}
+                          {{- $count := len $speakerPages -}}
+                          {{- range $i, $sp := first $maxAv $speakerPages }}
+                            {{- $photo := or ($sp.Resources.GetMatch "img/photo*") ($sp.Resources.GetMatch "img/*") -}}
+                            <span title="{{ $sp.Title }}">
+                              {{- if $photo -}}
+                                <img class="avatar-sm" src="{{ $photo.RelPermalink }}" alt="{{ $sp.Title }}">
+                              {{- else -}}
+                                <span class="avatar-initials">{{ (substr $sp.Title 0 1) | upper }}</span>
+                              {{- end -}}
+                            </span>
+                          {{- end -}}
+                          {{- if gt $count $maxAv -}}
+                            <span><span class="avatar-initials">+{{ sub $count $maxAv }}</span></span>
+                          {{- end -}}
+                        </div>
+                        {{- if $speakerNamesStr -}}<div class="session-speaker">{{ $speakerNamesStr }}</div>{{- end -}}
+                      </div>
+                    </div>
+
+                    <div class="row mt-3">
+                      <div class="col session-meta">
+                        {{- with $s.Date }}🕒 {{ . | time.Format "2006-01-02 15:04" }}{{- end -}}
+                        {{- with $roomPage }} &nbsp;•&nbsp; 📍 {{ .Title }}{{- end -}}
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            {{- end -}}
+          </div>
+        </div>
       </div>
     {{- end -}}
   {{- end -}}
