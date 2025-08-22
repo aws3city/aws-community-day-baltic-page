@@ -1,9 +1,7 @@
 ---
 title: "Viktor Vedmich"
 headline: "Senior Developer Advocate | AWS"
-format: 
-  - "Session"
-  - "Keynote"
+format: "Keynote"
 location: "Munich, Germany"
 linkedin: "https://linkedin.com/in/vedmich/"
 twitter: "https://x.com/vedmichv"
