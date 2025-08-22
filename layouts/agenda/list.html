@@ -144,17 +144,16 @@
             <div class="session-card">
               <div class="row g-3 align-items-center">
                 <div class="col-12">
+                  {{- if $slot.Params.summary -}}
+                  <div class="session-title h5 m-0">{{ $slot.Params.summary }}</div>
+                  {{- else -}}
                   <div class="session-title h5 m-0">{{ $slot.Title }}</div>
+                  {{- end -}}
                   <div class="mt-2">
                     {{- with $slot.Params.format -}}<span class="badge format">{{ . }}</span>{{- end -}}
                     {{- /* level celowo pomijamy dla “organizacyjnych” */ -}}
                     {{- range $slot.Params.tags }}<span class="badge tag">{{ . }}</span>{{- end }}
                   </div>
-                  {{- if $slot.Params.summary -}}
-                    <div class="mt-3 session-meta">{{ $slot.Params.summary }}</div>
-                  {{- else if $slot.Content -}}
-                    <div class="mt-3 session-meta">{{ $slot.Content | plainify }}</div>
-                  {{- end -}}
                 </div>
               </div>
             </div>
