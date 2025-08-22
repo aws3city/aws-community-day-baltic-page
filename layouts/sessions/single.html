@@ -1,4 +1,4 @@
-{{ define "main" }}
+<!-- {{ define "main" }}
 
 {{ $room := .Site.GetPage (printf "/%s/%s" "rooms" .Params.room ) }}
 
@@ -36,6 +36,152 @@
             </div>
         </div>
     </div>
+</div>
+
+{{ end }} -->
+
+{{ define "main" }}
+
+{{/* Ustawienia / pomocnicze */}}
+{{- $timeFormat := .Site.Params.timeFormat | default "15:04" -}}
+{{- $roomPage := site.GetPage (printf "rooms/%s" .Params.room) -}}
+
+{{/* Resolve speakers po slugach (działa dla _index/index/slug.md) */}}
+{{- $speakerSlugs := .Params.speakers | default (slice) -}}
+{{- $speakerPages := slice -}}
+{{- $allSpeakers := where site.Pages "Section" "speakers" -}}
+{{- range $speakerSlugs }}
+  {{- $slug := . -}}
+  {{- $fromGetPage := site.GetPage (printf "speakers/%s" $slug) -}}
+  {{- $fallback := index (where $allSpeakers ".File.TranslationBaseName" $slug) 0 -}}
+  {{- $p := or $fromGetPage $fallback -}}
+  {{- if $p }}{{- $speakerPages = $speakerPages | append $p -}}{{- end -}}
+{{- end -}}
+
+<style>
+  /* Reuse stylów z listy, + kilka drobnych dla single */
+  .sessions-view .session-card{background:#1b2635;border-radius:.75rem;padding:1.5rem 1.75rem;box-shadow:0 0 0 0 rgba(0,0,0,.2)}
+  .sessions-view .session-title{font-weight:700}
+  .sessions-view .session-speaker{font-weight:700}
+  .sessions-view .badge{border:0;background:rgba(255,255,255,.12);color:#fff;margin-right:.35rem}
+  .sessions-view .badge.level{background:linear-gradient(90deg,#6c7a89,#93a1ad)}
+  .sessions-view .badge.level.l100{background:linear-gradient(90deg,#16a34a,#22c55e)}
+  .sessions-view .badge.level.l200{background:linear-gradient(90deg,#2563eb,#60a5fa)}
+  .sessions-view .badge.level.l300{background:linear-gradient(90deg,#6f42c1,#a78bfa)}
+  .sessions-view .badge.level.l400{background:linear-gradient(90deg,#ef4444,#f97316)}
+  .sessions-view .badge.format{background:linear-gradient(90deg,#ff9900,#6f42c1)}
+  .sessions-view .badge.tag{background:rgba(255,255,255,.18)}
+  .sessions-view .session-meta{color:rgba(255,255,255,.75)}
+  .sessions-view .avatar{width:64px;height:64px;border-radius:9999px;background:#17202c;overflow:hidden;display:inline-block}
+  .sessions-view .avatar img{width:100%;height:100%;object-fit:cover}
+
+  /* Multi-speaker avatars (sidebar) */
+  .sessions-view .avatar-group{display:inline-flex;align-items:center}
+  .sessions-view .avatar-sm{width:48px;height:48px;border-radius:9999px;overflow:hidden;background:#17202c;border:2px solid #1b2635}
+  .sessions-view .avatar-stack>span{margin-left:-10px;position:relative}
+  .sessions-view .avatar-initials{width:48px;height:48px;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#9fb3c8;background:#17202c;border:2px solid #1b2635}
+
+  /* Bloczki w sidebarze */
+  .sessions-view .speaker-card{background:#1b2635;border-radius:.75rem;padding:1rem;margin-bottom:1rem}
+</style>
+
+<div class="mt-3 sessions-view">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Kolumna główna -->
+      <div class="col-12 col-lg-8">
+        <div class="session-card">
+
+          <!-- Nagłówek: ID + tytuł (spójne z listą: użyj .Params.summary jako tytuł karty, jeśli chcesz) -->
+          <div class="sessionid">{{ .File.ContentBaseName | upper }}</div>
+          <h1 class="session-title h3 m-0">
+            {{ default .Title .Params.summary }}
+          </h1>
+
+          <!-- Badges: format/level/tags -->
+          <div class="mt-3">
+            {{- with .Params.format -}}<span class="badge format">{{ . }}</span>{{- end -}}
+            {{- $lvlStr := printf "%v" .Params.level -}}
+            {{- if $lvlStr }}
+              <span class="badge level {{ cond (eq $lvlStr "100") "l100" (cond (eq $lvlStr "200") "l200" (cond (eq $lvlStr "300") "l300" (cond (eq $lvlStr "400") "l400" ""))) }}">
+                Level {{ $lvlStr }}
+              </span>
+            {{- end -}}
+            {{- range .Params.tags }}<span class="badge tag">{{ . }}</span>{{- end }}
+          </div>
+
+          <!-- Meta: czas + sala (z tytułem sali) + tracki + agenda -->
+          <div class="row mt-3">
+            <div class="col session-meta">
+              {{- with .Date }}🕒 {{ . | time.Format (printf "2006-01-02 %s" $timeFormat) }}{{- end -}}
+              {{- with $roomPage }} &nbsp;•&nbsp; 📍 <a class="no-underline" href="{{ .RelPermalink }}">{{ .Title }}</a>{{- end -}}
+              {{- with $.Params.agenda }} &nbsp;•&nbsp; 📄 <a class="no-underline" href="{{ $.Site.BaseURL }}agenda/{{ . }}">Agenda: {{ . }}</a>{{- end -}}
+              {{- with $.Param "tracks" -}}
+                {{- $tracks := . | len -}}
+                {{- if gt $tracks 0 -}} &nbsp;•&nbsp; 🧭 Track{{ if gt $tracks 1 }}s{{end}}:
+                  {{- range $i, $tag := . -}}
+                    {{- if $i }}, {{ end -}}
+                    {{- with $.Site.GetPage (printf "/%s/%s" "tracks" $tag) -}}
+                      <a href="{{ .RelPermalink }}" class="no-underline">{{ .Title }}</a>
+                    {{- end -}}
+                  {{- end -}}
+                {{- end -}}
+              {{- end }}
+            </div>
+          </div>
+
+          <!-- Treść sesji -->
+          <div class="mt-3">
+            {{ .Content }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar: prelegenci -->
+      <div class="col-12 col-lg-4">
+        {{- if gt (len $speakerPages) 0 -}}
+          <!-- Pasek zbiorczy avatarów (opcjonalny) -->
+          <div class="session-card mb-3">
+            <div class="avatar-group avatar-stack">
+              {{- $maxAv := 4 -}}
+              {{- $count := len $speakerPages -}}
+              {{- range $i, $sp := first $maxAv $speakerPages }}
+                {{- $photo := or ($sp.Resources.GetMatch "img/photo*") ($sp.Resources.GetMatch "img/*") -}}
+                <span title="{{ $sp.Title }}">
+                  {{- if $photo -}}
+                    <img class="avatar-sm" src="{{ $photo.RelPermalink }}" alt="{{ $sp.Title }}">
+                  {{- else -}}
+                    <span class="avatar-initials">{{ (substr $sp.Title 0 1) | upper }}</span>
+                  {{- end -}}
+                </span>
+              {{- end -}}
+              {{- if gt $count $maxAv -}}
+                <span><span class="avatar-initials">+{{ sub $count $maxAv }}</span></span>
+              {{- end -}}
+            </div>
+          </div>
+
+          <!-- Kafelki każdego speakera: imię, headline, opis/link -->
+          {{- range $sp := $speakerPages }}
+            {{- $photo := or ($sp.Resources.GetMatch "img/photo*") ($sp.Resources.GetMatch "img/*") -}}
+            <div class="speaker-card">
+              <div class="d-flex align-items-center mb-2">
+                <span class="avatar me-3">
+                  {{- if $photo -}}<img src="{{ $photo.RelPermalink }}" alt="{{ $sp.Title }}">{{- end -}}
+                </span>
+                <div>
+                  <div class="session-speaker">{{ $sp.Title }}</div>
+                  {{- with $sp.Params.headline }}<div class="session-meta">{{ . }}</div>{{- end -}}
+                </div>
+              </div>
+              {{- with $sp.Params.bio -}}<div class="session-meta">{{ . }}</div>{{- end -}}
+              <a class="no-underline d-inline-block mt-2" href="{{ $sp.RelPermalink }}">Zobacz profil prelegenta →</a>
+            </div>
+          {{- end -}}
+        {{- end -}}
+      </div>
+    </div>
+  </div>
 </div>
 
 {{ end }}
