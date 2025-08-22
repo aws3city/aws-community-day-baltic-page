@@ -1,93 +1,172 @@
 {{ define "main" }}
-<div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-12 col-lg-10">
-      <div class="row g-4 align-items-start">
-        <div class="col-12 col-md-4">
-          <style>
-            .speaker-photo-frame { background:#17202c; border-radius:.75rem; overflow:hidden; width:100%; aspect-ratio: 4 / 3; position:relative; display:block; }
-            .speaker-photo-frame img { width:100%; height:100%; object-fit:cover; object-position: 50% 25%; display:block; }
-            .speaker-photo-frame.is-clickable { cursor:pointer; }
-            .speaker-photo-frame.is-clickable:hover { box-shadow: 0 0 0 3px #6f42c1, 0 0 18px 8px #ff9900; }
-            .flag-emoji, .baltic-emoji { text-shadow: 0 0 2px #000, 0 0 6px rgba(255,255,255,.2); filter: saturate(1.15); }
-          </style>
-          {{- $photo := .Resources.GetMatch "img/photo*" -}}
-          {{- if not $photo -}}
-            {{- $photo = .Resources.GetMatch "img/*" -}}
-          {{- end -}}
-          {{- if .Params.talk -}}
-            <a href="{{ .Params.talk }}" target="_blank" rel="noopener" class="speaker-photo-frame is-clickable mb-3">
-              {{- if $photo -}}
-                <img src="{{ $photo.RelPermalink }}" alt="{{ .Title }}"/>
-              {{- else -}}
-                <div class="text-white-50 d-flex align-items-center justify-content-center w-100 h-100">No photo</div>
-              {{- end -}}
-            </a>
-          {{- else -}}
-            <div class="speaker-photo-frame mb-3">
-              {{- if $photo -}}
-                <img src="{{ $photo.RelPermalink }}" alt="{{ .Title }}"/>
-              {{- else -}}
-                <div class="text-white-50 d-flex align-items-center justify-content-center w-100 h-100">No photo</div>
-              {{- end -}}
-            </div>
-          {{- end -}}
-        </div>
-        <div class="col-12 col-md-8">
-          {{- $talkTitle := .Params.summary | default "TBD" -}}
-          <div class="mb-2 h4 m-0">{{ $talkTitle }}</div>
-          {{- $format := .Params.format -}}
-          {{- $level := .Params.level -}}
-          {{- if or $format $level -}}
-            <div class="mb-3 d-flex flex-wrap gap-2">
-              {{- with $format -}}<span class="badge bg-secondary">{{ . }}</span>{{- end -}}
-              {{- with $level -}}<span class="badge bg-secondary">Level {{ . }}</span>{{- end -}}
-            </div>
-          {{- end -}}
-          <h1 class="h3">{{ .Title }}</h1>
-          <div class="mb-2 d-flex flex-wrap gap-2 align-items-center">
-            {{- with .Params.linkedin -}}<a href="{{ . }}" target="_blank" rel="noopener" title="LinkedIn">🔗</a>{{- end -}}
-            {{- with .Params.twitter -}}<a href="{{ . }}" target="_blank" rel="noopener" title="X / Twitter">𝕏</a>{{- end -}}
-            {{- with .Params.website -}}<a href="{{ . }}" target="_blank" rel="noopener" title="Website">🌐</a>{{- end -}}
-            {{- with .Params.blog -}}<a href="{{ . }}" target="_blank" rel="noopener" title="Blog">📝</a>{{- end -}}
-            {{- with .Params.instagram -}}<a href="{{ . }}" target="_blank" rel="noopener" title="Instagram">📸</a>{{- end -}}
-            {{- with .Params.github -}}<a href="{{ . }}" target="_blank" rel="noopener" title="GitHub">🐙</a>{{- end -}}
-            {{- with .Params.slideshare -}}<a href="{{ . }}" target="_blank" rel="noopener" title="SlideShare">📑</a>{{- end -}}
-            {{- with .Params.bluesky -}}<a href="{{ . }}" target="_blank" rel="noopener" title="Bluesky">🌀</a>{{- end -}}
+
+{{/* ===== pomocnicze ===== */}}
+{{- $timeFormat := .Site.Params.timeFormat | default "15:04" -}}
+
+{{/* Próba pobrania zdjęcia speakera */}}
+{{- $photo := or (.Resources.GetMatch "img/photo*") (.Resources.GetMatch "img/*") -}}
+
+{{/* Wyznacz slug speakera (działa dla leaf i branch bundles) */}}
+{{- $dir := .File.Dir -}}
+{{- $slugFromDir := trim (replace $dir "speakers/" "") "/" -}}
+{{- $slug := (or $slugFromDir .File.TranslationBaseName) -}}
+
+{{/* Wszystkie sesje i te prowadzone przez tego speakera */}}
+{{- $allSessions := where site.RegularPages "Section" "sessions" -}}
+{{- $mySessions := where $allSessions ".Params.speakers" "intersect" (slice $slug) -}}
+{{- /* opcjonalnie: sortuj po dacie, albo po Params.agenda */ -}}
+{{- $mySessions = sort $mySessions ".Date" "asc" -}}
+
+<style>
+  /* panel/kolory spójne z sesjami */
+  .speakers-view .panel{background:#1b2635;border-radius:.75rem;padding:1.25rem 1.5rem;box-shadow:0 0 0 0 rgba(0,0,0,.2)}
+  .speakers-view .name{font-weight:700}
+  .speakers-view .meta{color:rgba(255,255,255,.75)}
+  .speakers-view .avatar{width:96px;height:96px;border-radius:9999px;background:#17202c;overflow:hidden;display:inline-block}
+  .speakers-view .avatar img{width:100%;height:100%;object-fit:cover}
+  .speakers-view .links a{margin-right:.5rem}
+
+  /* karty sesji – jak w listach */
+  .sessions-list .session-card{background:#1b2635;border-radius:.75rem;padding:1.25rem 1.5rem;height:100%;box-shadow:0 0 0 0 rgba(0,0,0,.2)}
+  .sessions-list .session-title{font-weight:700}
+  .sessions-list .session-speaker{font-weight:700}
+  .sessions-list .badge{border:0;background:rgba(255,255,255,.12);color:#fff;margin-right:.35rem}
+  .sessions-list .badge.level{background:linear-gradient(90deg,#6c7a89,#93a1ad)}
+  .sessions-list .badge.level.l100{background:linear-gradient(90deg,#16a34a,#22c55e)}
+  .sessions-list .badge.level.l200{background:linear-gradient(90deg,#2563eb,#60a5fa)}
+  .sessions-list .badge.level.l300{background:linear-gradient(90deg,#6f42c1,#a78bfa)}
+  .sessions-list .badge.level.l400{background:linear-gradient(90deg,#ef4444,#f97316)}
+  .sessions-list .badge.format{background:linear-gradient(90deg,#ff9900,#6f42c1)}
+  .sessions-list .badge.tag{background:rgba(255,255,255,.18)}
+  .sessions-list .session-meta{color:rgba(255,255,255,.75)}
+  .sessions-list a.card-link{text-decoration:none;color:inherit;display:block}
+  .sessions-list a.card-link:hover .session-title{text-decoration:underline}
+  .sessions-list .avatar-sm{width:40px;height:40px;border-radius:9999px;overflow:hidden;background:#17202c;border:2px solid #1b2635}
+  .sessions-list .avatar-initials{width:40px;height:40px;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#9fb3c8;background:#17202c;border:2px solid #1b2635}
+</style>
+
+<div class="container py-5 speakers-view">
+  <div class="row g-4">
+    <!-- Lewa kolumna: karta speakera -->
+    <div class="col-12 col-lg-4">
+      <div class="panel">
+        <div class="d-flex align-items-center">
+          <span class="avatar me-3">
+            {{- if $photo -}}<img src="{{ $photo.RelPermalink }}" alt="{{ .Title }}">{{- end -}}
+          </span>
+          <div>
+            <div class="name h4 m-0">{{ .Title }}</div>
+            {{- with .Params.headline }}<div class="meta">{{ . }}</div>{{- end -}}
+            {{- with .Params.location }}<div class="meta">📍 {{ . }}</div>{{- end -}}
           </div>
-          {{- $role := .Params.role -}}
-          {{- $company := .Params.company -}}
-          {{- $location := .Params.location -}}
-          {{- $headline := .Params.headline | default "" -}}
-          {{- $headlineLower := lower $headline -}}
-          {{- $isHero := or (in $headlineLower "hero") (eq (printf "%v" .Params.hero) "true") -}}
-          {{- $isBuilder := or (in $headlineLower "community builder") (eq (printf "%v" .Params.community_builder) "true") -}}
-          {{- if or $role $company -}}
-            <div class="text-white-50 mb-3">
-              {{- if $role -}}{{ $role }}{{- end -}}{{- if and $role $company -}}, {{- end -}}{{- if $company -}}{{ $company }}{{- end -}}
-            </div>
-          {{- end -}}
-          {{- if or $isHero $isBuilder -}}
-            <div class="mb-3 d-flex gap-2 flex-wrap">
-              {{- if $isHero -}}<span class="badge" style="background:linear-gradient(90deg,#ff9900,#6f42c1);border:0;">AWS Hero</span>{{- end -}}
-              {{- if $isBuilder -}}<span class="badge" style="background:linear-gradient(90deg,#22d3ee,#0ea5e9);border:0;">AWS Community Builder</span>{{- end -}}
-            </div>
-          {{- end -}}
-          {{- if $location -}}
-            <div class="text-white-50 mb-3">{{ $location }} {{ partial "flag.html" (dict "location" $location "page" .) }}</div>
-          {{- end -}}
-          
-          <div class="content">{{ .Content }}</div>
-          {{- with .Params.talk -}}
-            <div class="mt-4">
-              <a class="btn-acd" href="{{ . }}" target="_blank" rel="noopener">View Talk</a>
+        </div>
+
+        {{/* Linki społecznościowe / WWW */}}
+        <div class="links mt-3">
+          {{- with .Params.linkedin }}<a class="text-reset" href="{{ . }}" rel="noopener">LinkedIn</a>{{- end -}}
+          {{- with .Params.twitter }}<a class="text-reset" href="{{ . }}" rel="noopener">Twitter/X</a>{{- end -}}
+          {{- with .Params.bluesky }}<a class="text-reset" href="{{ . }}" rel="noopener">Bluesky</a>{{- end -}}
+          {{- with .Params.github }}<a class="text-reset" href="{{ . }}" rel="noopener">GitHub</a>{{- end -}}
+          {{- with .Params.blog }}<a class="text-reset" href="{{ . }}" rel="noopener">Blog</a>{{- end -}}
+          {{- with .Params.company_website }}<a class="text-reset" href="{{ . }}" rel="noopener">Company</a>{{- end -}}
+          {{- with .Params.slideshare }}<a class="text-reset" href="{{ . }}" rel="noopener">SlideShare</a>{{- end -}}
+        </div>
+
+        {{/* Krótki bio z parametrów (jeśli trzymasz jako param) – opcjonalnie */}}
+        {{- with .Params.bio }}
+          <div class="meta mt-3">{{ . }}</div>
+        {{- end }}
+      </div>
+    </div>
+
+    <!-- Prawa kolumna: bio + lista sesji -->
+    <div class="col-12 col-lg-8">
+      {{- if .Content }}
+        <div class="panel mb-4">
+          {{ .Content }}
+        </div>
+      {{- end }}
+
+      <div class="row justify-content-between align-items-center mb-2">
+        <div class="col-auto"><h2 class="h5 m-0">Sessions</h2></div>
+        <div class="col-auto meta">{{ len $mySessions }} item{{ if ne (len $mySessions) 1 }}s{{ end }}</div>
+      </div>
+
+      {{- if gt (len $mySessions) 0 -}}
+        <div class="row g-3 sessions-list">
+          {{- range $s := $mySessions -}}
+            {{- $cardTitle := default $s.Title $s.Params.summary -}}
+            {{- $format := $s.Params.format -}}
+            {{- $lvlStr := printf "%v" $s.Params.level -}}
+            {{- $tags := $s.Params.tags -}}
+            {{- $hideLevel := or (eq $format "Keynote") (eq $format "Organizational") -}}
+
+            {{- /* sala tytułem z rooms/<slug> */ -}}
+            {{- $roomSlug := $s.Params.room -}}
+            {{- $roomPage := cond (not $roomSlug) nil (site.GetPage (printf "rooms/%s" $roomSlug)) -}}
+
+            {{- /* współprelegenci (do avatara/nazwisk na karcie) */ -}}
+            {{- $speakerSlugs := $s.Params.speakers | default (slice) -}}
+            {{- $speakerPages := slice -}}
+            {{- $allSpeakers := where site.Pages "Section" "speakers" -}}
+            {{- range $speakerSlugs }}
+              {{- $slug2 := . -}}
+              {{- $fromGetPage := site.GetPage (printf "speakers/%s" $slug2) -}}
+              {{- $fallback := index (where $allSpeakers ".File.TranslationBaseName" $slug2) 0 -}}
+              {{- $p := or $fromGetPage $fallback -}}
+              {{- if $p }}{{- $speakerPages = $speakerPages | append $p -}}{{- end -}}
+            {{- end -}}
+            {{- $speakerNames := slice -}}
+            {{- range $speakerPages }}{{- $speakerNames = $speakerNames | append .Title -}}{{- end -}}
+            {{- $speakerNamesStr := delimit $speakerNames ", " -}}
+
+            <div class="col-12">
+              <a class="card-link" href="{{ $s.RelPermalink }}">
+                <div class="session-card">
+                  <div class="row g-3 align-items-center">
+                    <div class="col-12 col-md-9">
+                      <div class="session-title h5 m-0">{{ $cardTitle }}</div>
+                      <div class="mt-2">
+                        {{- with $format -}}<span class="badge format">{{ . }}</span>{{- end -}}
+                        {{- if and $lvlStr (not $hideLevel) -}}
+                          <span class="badge level {{ cond (eq $lvlStr "100") "l100" (cond (eq $lvlStr "200") "l200" (cond (eq $lvlStr "300") "l300" (cond (eq $lvlStr "400") "l400" ""))) }}">
+                            Level {{ $lvlStr }}
+                          </span>
+                        {{- end -}}
+                        {{- range $tags }}<span class="badge tag">{{ . }}</span>{{- end }}
+                      </div>
+                      {{- if $s.Params.summary -}}
+                        <div class="mt-3 session-meta">{{ $s.Params.summary }}</div>
+                      {{- else if $s.Content -}}
+                        <div class="mt-3 session-meta">{{ $s.Content | plainify | truncate 360 }}</div>
+                      {{- end -}}
+                    </div>
+                    <div class="col-12 col-md-3 text-md-end">
+                      {{- /* pokaż mały avatar pierwszego prelegenta danej sesji (może to być sam aktualny speaker albo współprelegent) */ -}}
+                      {{- $first := cond (gt (len $speakerPages) 0) (index $speakerPages 0) nil -}}
+                      {{- $fphoto := cond (not $first) nil (or ($first.Resources.GetMatch "img/photo*") ($first.Resources.GetMatch "img/*")) -}}
+                      <span class="mb-2 d-inline-block">
+                        {{- if $fphoto -}}<img class="avatar-sm" src="{{ $fphoto.RelPermalink }}" alt="{{ $first.Title }}">{{- else -}}<span class="avatar-initials">{{ if $first }}{{ (substr $first.Title 0 1) | upper }}{{ end }}</span>{{- end -}}
+                      </span>
+                      {{- if $speakerNamesStr -}}<div class="session-speaker">{{ $speakerNamesStr }}</div>{{- end -}}
+                    </div>
+                  </div>
+
+                  <div class="row mt-3">
+                    <div class="col session-meta">
+                      {{- with $s.Date }}🕒 {{ . | time.Format (printf "2006-01-02 %s" $timeFormat) }}{{- end -}}
+                      {{- with $roomPage }} &nbsp;•&nbsp; 📍 {{ .Title }}{{- end -}}
+                    </div>
+                  </div>
+                </div>
+              </a>
             </div>
           {{- end -}}
         </div>
-      </div>
+      {{- else -}}
+        <div class="panel meta">No sessions assigned.</div>
+      {{- end -}}
     </div>
   </div>
 </div>
 {{ end }}
-
-
