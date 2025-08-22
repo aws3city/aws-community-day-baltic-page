@@ -1,9 +1,9 @@
 ---
 title: "Viktor Vedmich"
 headline: "Senior Developer Advocate | AWS"
-summary: "Model Context Protocol (MCP): From Zero to Hero"
-format: "Session"
-level: "300"
+format: 
+  - "Session"
+  - "Keynote"
 location: "Munich, Germany"
 linkedin: "https://linkedin.com/in/vedmich/"
 twitter: "https://x.com/vedmichv"

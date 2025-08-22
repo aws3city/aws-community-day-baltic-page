@@ -121,7 +121,10 @@
           <div class="row mt-3">
             <div class="col session-meta">
               {{- with $s.Date }}🕒 {{ . | time.Format "2006-01-02 15:04" }}{{- end -}}
-              {{- with $s.Params.room }} &nbsp;•&nbsp; 📍 {{ . }}{{- end -}}
+              {{- with $s.Params.room }}
+                {{- $roomPage := site.GetPage (printf "rooms/%s" .) -}}
+                &nbsp;•&nbsp; 📍 {{ if $roomPage }}{{ $roomPage.Title }}{{ else }}{{ . }}{{ end }}
+              {{- end -}}
             </div>
           </div>
         </div>
