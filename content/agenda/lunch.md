@@ -1,3 +1,5 @@
 ---
 title: "12:00 - 13:00 Lunch"
+summary: Lunch
+
 ---
