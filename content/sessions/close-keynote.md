@@ -1,6 +1,6 @@
 ---
 title: "The engineering mindset in the age of AI: Beyond vibe coding"
-date: 2025-10-03T16:00:00
+date: 2025-09-10T16:00:00
 speakers:
     - "gunnar-grosch"
 room: "auditorium"

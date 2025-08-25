@@ -1,6 +1,6 @@
 ---
 title: "Kickoff"
-date: 2025-10-03T09:00:00
+date: 2025-09-10T09:00:00
 speakers:
     - "grzegorz-kalwig"
     - "anton-antanovich"

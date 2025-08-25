@@ -1,6 +1,6 @@
 ---
 title: "Open Keynote"
-date: 2025-10-03T09:15:00
+date: 2025-09-10T09:15:00
 speakers:
     - "viktor-vedmich"
 room: "auditorium"
