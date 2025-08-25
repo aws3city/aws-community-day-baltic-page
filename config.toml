@@ -3,6 +3,7 @@ baseURL = "https://awsbaltic.eu/"
 languageCode = "en-us"
 title = "AWS Community Day Baltic"
 canonifyURLs = true
+buildFuture = true
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
