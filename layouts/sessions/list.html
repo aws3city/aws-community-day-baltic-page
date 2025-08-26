@@ -95,6 +95,10 @@
                 {{- $count := len $speakerPages -}}
                 {{- range $i, $sp := first $maxAv $speakerPages }}
                 {{- $photo := or ($sp.Resources.GetMatch "img/photo*") ($sp.Resources.GetMatch "img/*") -}}
+                {{- if not $photo -}}
+                  {{- $imgs := $sp.Resources.ByType "image" -}}
+                  {{- if gt (len $imgs) 0 -}}{{- $photo = index $imgs 0 -}}{{- end -}}
+                {{- end -}}
                 <span title="{{ $sp.Title }}">
                     {{- if $photo -}}
                     <img class="avatar-sm" src="{{ $photo.RelPermalink }}" alt="{{ $sp.Title }}">
