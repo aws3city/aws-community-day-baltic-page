@@ -67,31 +67,20 @@
               </div>
 
               <div class="col-12 col-md-3 text-md-end">
-                <div class="avatar-group avatar-stack mb-2">
-                  {{- $maxAv := 3 -}}
-                  {{- $count := len $speakerPages -}}
-                  {{- range $i, $sp := first $maxAv $speakerPages }}
-                    {{- $photo := or ($sp.Resources.GetMatch "img/photo*") ($sp.Resources.GetMatch "img/*") -}}
-                    {{- if not $photo -}}
-                      {{- $imgs := $sp.Resources.ByType "image" -}}
-                      {{- if gt (len $imgs) 0 -}}{{- $photo = index $imgs 0 -}}{{- end -}}
-                    {{- end -}}
-                    <span title="{{ $sp.Title }}">
-                      {{- if $photo -}}
-                        <a href="{{ $sp.RelPermalink }}" class="text-reset"><span class="avatar-sm"><img src="{{ $photo.RelPermalink }}" alt="{{ $sp.Title }}" style="object-position:50% {{ or $sp.Params.focusY "25%" }};"></span></a>
-                      {{- else -}}
-                        <a href="{{ $sp.RelPermalink }}" class="text-reset"><span class="avatar-initials">{{ (substr $sp.Title 0 1) | upper }}</span></a>
-                      {{- end -}}
-                    </span>
-                  {{- end -}}
-                  {{- if gt $count $maxAv -}}
-                    <span><span class="avatar-initials">+{{ sub $count $maxAv }}</span></span>
-                  {{- end -}}
-                </div>
-
                 {{- range $sp := $speakerPages }}
-                  <div class="session-speaker"><a href="{{ $sp.RelPermalink }}" class="text-reset">{{ $sp.Title }}</a></div>
-                  {{- with $sp.Params.headline }}<div class="session-meta">{{ . }}</div>{{- end -}}
+                  {{- $photo := or ($sp.Resources.GetMatch "img/photo*") ($sp.Resources.GetMatch "img/*") -}}
+                  {{- if not $photo -}}
+                    {{- $imgs := $sp.Resources.ByType "image" -}}
+                    {{- if gt (len $imgs) 0 -}}{{- $photo = index $imgs 0 -}}{{- end -}}
+                  {{- end -}}
+                  <div class="d-flex align-items-center justify-content-md-end gap-2 mb-2">
+                    {{- if $photo -}}
+                      <a href="{{ $sp.RelPermalink }}" class="avatar-sm"><img src="{{ $photo.RelPermalink }}" alt="{{ $sp.Title }}" style="object-position:50% {{ or $sp.Params.focusY "25%" }};"></a>
+                    {{- else -}}
+                      <a href="{{ $sp.RelPermalink }}" class="text-reset"><span class="avatar-initials">{{ (substr $sp.Title 0 1) | upper }}</span></a>
+                    {{- end -}}
+                    <a href="{{ $sp.RelPermalink }}" class="text-reset">{{ $sp.Title }}</a>
+                  </div>
                 {{- end -}}
               </div>
             </div>
