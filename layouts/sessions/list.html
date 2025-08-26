@@ -20,9 +20,10 @@
   .sessions-list .session-meta{color:rgba(255,255,255,.75)}
   .sessions-list a.card-link{text-decoration:none;color:inherit;display:block}
   .sessions-list a.card-link:hover .session-title{text-decoration:underline}
-  /* Speaker avatar (match speakers page, smaller) */
-  .sessions-list .avatar-frame{width:56px;height:56px;border-radius:9999px;background:#17202c;overflow:hidden;display:inline-block}
+  /* Speaker avatar (match speakers page styling) */
+  .sessions-list .avatar-frame{width:76px;height:76px;border-radius:9999px;background:#17202c;overflow:hidden;display:inline-block;border:2px solid #1b2635;transition:box-shadow .2s ease}
   .sessions-list .avatar-frame img{width:100%;height:100%;object-fit:cover;object-position:50% 25%;display:block}
+  .sessions-list a:hover .avatar-frame{box-shadow:0 0 0 3px #6f42c1,0 0 14px 6px #ff9900}
 
   /* Multi-speaker avatars */
   .sessions-list .avatar-group{display:inline-flex;align-items:center}
@@ -102,12 +103,12 @@
                   {{- if gt (len $imgs) 0 -}}{{- $photo = index $imgs 0 -}}{{- end -}}
                 {{- end -}}
                 <span title="{{ $sp.Title }}">
-                    {{- if $photo -}}
+                  {{- if $photo -}}
                     {{- $fy := or $sp.Params.focusY "25%" -}}
-                    <span class="avatar-sm"><img src="{{ $photo.RelPermalink }}" alt="{{ $sp.Title }}" style="object-position:50% {{ $fy }};"></span>
-                    {{- else -}}
+                    <span class="avatar-frame"><img src="{{ $photo.RelPermalink }}" alt="{{ $sp.Title }}" style="object-position:50% {{ $fy }};"></span>
+                  {{- else -}}
                     <span class="avatar-initials">{{ (substr $sp.Title 0 1) | upper }}</span>
-                    {{- end -}}
+                  {{- end -}}
                 </span>
                 {{- end -}}
                 {{- if gt $count $maxAv -}}
