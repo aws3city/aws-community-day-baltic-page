@@ -72,7 +72,8 @@
         <div class="speaker-item">
           <a href="{{ $href }}" {{ if .Params.talk }}target="_blank" rel="noopener"{{ end }} class="d-inline-block flex-shrink-0 avatar-link">
             {{- if $photo -}}
-              <span class="avatar-frame {{ if $isHero }}is-hero{{ else if $isEmployee }}is-employee{{ else if $isBuilder }}is-builder{{ end }}"><img src="{{ $photo.RelPermalink }}" alt="{{ .Title }}" loading="lazy" /></span>
+              {{- $focusY := or .Params.focusY "25%" -}}
+              <span class="avatar-frame {{ if $isHero }}is-hero{{ else if $isEmployee }}is-employee{{ else if $isBuilder }}is-builder{{ end }}"><img src="{{ $photo.RelPermalink }}" alt="{{ .Title }}" loading="lazy" style="object-position:50% {{ $focusY }};"/></span>
             {{- else -}}
               <span class="avatar-frame {{ if $isHero }}is-hero{{ else if $isEmployee }}is-employee{{ else if $isBuilder }}is-builder{{ end }}"></span>
             {{- end -}}

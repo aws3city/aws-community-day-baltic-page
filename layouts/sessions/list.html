@@ -103,7 +103,8 @@
                 {{- end -}}
                 <span title="{{ $sp.Title }}">
                     {{- if $photo -}}
-                    <span class="avatar-sm"><img src="{{ $photo.RelPermalink }}" alt="{{ $sp.Title }}"></span>
+                    {{- $fy := or $sp.Params.focusY "25%" -}}
+                    <span class="avatar-sm"><img src="{{ $photo.RelPermalink }}" alt="{{ $sp.Title }}" style="object-position:50% {{ $fy }};"></span>
                     {{- else -}}
                     <span class="avatar-initials">{{ (substr $sp.Title 0 1) | upper }}</span>
                     {{- end -}}
