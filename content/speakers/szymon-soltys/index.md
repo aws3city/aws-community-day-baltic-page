@@ -1,6 +1,7 @@
 ---
 title: "Szymon Sołtys"
 headline: "Senior DevOps Engineer, Transition Technologies"
+focusY: "35%"
 format: "Session"
 location: "Wrocław, Poland"
 linkedin: "https://linkedin.com/in/szymonsoltys/"

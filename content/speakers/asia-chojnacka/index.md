@@ -1,6 +1,7 @@
 ---
 title: "Asia Chojnacka"
 headline: "Senior Software Engineer & Cloud Community Leader at Capgemini | AWS Community Builder"
+focusY: "35%"
 format: "Session"
 location: "Wrocław, Poland"
 linkedin: "https://linkedin.com/in/joanna-chojnacka-333a03217"
