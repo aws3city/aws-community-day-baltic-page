@@ -20,12 +20,14 @@
   .sessions-list .session-meta{color:rgba(255,255,255,.75)}
   .sessions-list a.card-link{text-decoration:none;color:inherit;display:block}
   .sessions-list a.card-link:hover .session-title{text-decoration:underline}
-  .sessions-list .avatar{width:64px;height:64px;border-radius:9999px;background:#17202c;overflow:hidden;display:inline-block}
-  .sessions-list .avatar img{width:100%;height:100%;object-fit:cover}
+  /* Speaker avatar (match speakers page, smaller) */
+  .sessions-list .avatar-frame{width:56px;height:56px;border-radius:9999px;background:#17202c;overflow:hidden;display:inline-block}
+  .sessions-list .avatar-frame img{width:100%;height:100%;object-fit:cover;object-position:50% 25%;display:block}
 
   /* Multi-speaker avatars */
   .sessions-list .avatar-group{display:inline-flex;align-items:center}
-  .sessions-list .avatar-sm{width:40px;height:40px;border-radius:9999px;overflow:hidden;background:#17202c;border:2px solid #1b2635}
+  .sessions-list .avatar-sm{width:44px;height:44px;border-radius:9999px;overflow:hidden;background:#17202c;border:2px solid #1b2635;display:inline-block}
+  .sessions-list .avatar-sm img{width:100%;height:100%;object-fit:cover;object-position:50% 25%;display:block}
   .sessions-list .avatar-stack>span{margin-left:-10px;position:relative}
   .sessions-list .avatar-initials{width:40px;height:40px;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#9fb3c8;background:#17202c;border:2px solid #1b2635}
 </style>
@@ -101,7 +103,7 @@
                 {{- end -}}
                 <span title="{{ $sp.Title }}">
                     {{- if $photo -}}
-                    <img class="avatar-sm" src="{{ $photo.RelPermalink }}" alt="{{ $sp.Title }}">
+                    <span class="avatar-sm"><img src="{{ $photo.RelPermalink }}" alt="{{ $sp.Title }}"></span>
                     {{- else -}}
                     <span class="avatar-initials">{{ (substr $sp.Title 0 1) | upper }}</span>
                     {{- end -}}
