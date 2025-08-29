@@ -1,6 +1,6 @@
 ---
 title: "Szymon Sołtys"
-headline: "Senior DevOps Engineer, Transition Technologies"
+headline: "Senior DevOps Engineer, Transition Technologies | AWS Community Builder"
 focusY: "35%"
 format: "Session"
 location: "Wrocław, Poland"
