@@ -1,6 +1,6 @@
 ---
 title: "Mikhail Chumakov"
-headline: "Senior Software Engineer & Cloud Community Leader at Capgemini | AWS Community Builder"
+headline: "Senior .Net Cloud Engineer at ACTUM Digital | AWS Community Builder"
 format: "Session"
 location: "Prague, Czech Republic"
 linkedin: "https://linkedin.com/in/mikhail-chumakov"
