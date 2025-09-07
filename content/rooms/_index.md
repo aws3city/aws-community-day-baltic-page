@@ -6,6 +6,14 @@ menu:
 ---
 
 <div class="mb-3">
+  <p class="m-0">Join for a full-day conference packed with workshops, inspiring keynotes, and breakout sessions on the latest in cloud, AI, and technology.</p>
+  <p class="m-0"><strong>Address:</strong> Conference Center of Pomeranian Science and Technology Park (PPNT), Aleja Zwycięstwa 96/98, 81-451 Gdynia, Poland<br/>
+  Google Maps: <a href="https://maps.google.com/?q=Aleja+Zwyci%C4%99stwa+96%2F98%2C+81-451+Gdynia%2C+Poland" target="_blank" rel="noopener">Open</a> •
+  Apple Maps: <a href="https://maps.apple.com/?q=Aleja+Zwyci%C4%99stwa+96%2F98,+Gdynia" target="_blank" rel="noopener">Open</a></p>
+  <hr class="my-3"/>
+  </div>
+
+<div class="mb-3">
   <div class="h5 mb-2">How to find the venue</div>
   <ul class="list-unstyled d-grid gap-2">
     <li>Venue location point: <a href="https://maps.app.goo.gl/KxQanBJhUanG8isc6" target="_blank" rel="noopener">Google Maps</a> | <a href="http://maps.apple.com/?daddr=54.495497,18.538187&dirflg=w" target="_blank" rel="noopener">Apple Maps</a></li>
