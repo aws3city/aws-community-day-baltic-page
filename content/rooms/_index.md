@@ -8,10 +8,10 @@ menu:
 <div class="mb-3">
   <div class="h5 mb-2">How to find the venue</div>
   <ul class="list-unstyled d-grid gap-2">
-    <li>Venue location point: <a href="https://maps.app.goo.gl/KxQanBJhUanG8isc6" target="_blank" rel="noopener">Google Maps</a> | <a href="http://maps.apple.com/?daddr=Centrum+Konferencyjne+PPNT+Gdynia&dirflg=w" target="_blank" rel="noopener">Apple Maps</a></li>
-    <li>From Gdynia SKM Redłowo: <a href="https://maps.app.goo.gl/rcTQMNbQ89oY6KuA7" target="_blank" rel="noopener">Google Maps</a> | <a href="http://maps.apple.com/?saddr=SKM+Gdynia+Red%C5%82owo,+Gdynia&daddr=Centrum+Konferencyjne+PPNT+Gdynia&dirflg=w" target="_blank" rel="noopener">Apple Maps</a></li>
-    <li>From Gdańsk Airport by taxi: <a href="https://maps.app.goo.gl/mB84pQt6eMZvoXbE9" target="_blank" rel="noopener">Google Maps</a> | <a href="http://maps.apple.com/?saddr=Gda%C5%84sk+Airport&daddr=Centrum+Konferencyjne+PPNT+Gdynia&dirflg=d" target="_blank" rel="noopener">Apple Maps</a></li>
-    <li>From Gdynia PKM Stadion train station: <a href="https://maps.app.goo.gl/TvNgTb4Xoe69Nv7d6" target="_blank" rel="noopener">Google Maps</a> | <a href="http://maps.apple.com/?saddr=SKM+Gdynia+Stadion,+Gdynia&daddr=Centrum+Konferencyjne+PPNT+Gdynia&dirflg=w" target="_blank" rel="noopener">Apple Maps</a></li>
+    <li>Venue location point: <a href="https://maps.app.goo.gl/KxQanBJhUanG8isc6" target="_blank" rel="noopener">Google Maps</a> | <a href="http://maps.apple.com/?daddr=54.4924,18.5480&dirflg=w" target="_blank" rel="noopener">Apple Maps</a></li>
+    <li>From Gdynia SKM Redłowo: <a href="https://maps.app.goo.gl/rcTQMNbQ89oY6KuA7" target="_blank" rel="noopener">Google Maps</a> | <a href="http://maps.apple.com/?saddr=54.4889,18.5497&daddr=54.4924,18.5480&dirflg=w" target="_blank" rel="noopener">Apple Maps</a></li>
+    <li>From Gdańsk Airport by taxi: <a href="https://maps.app.goo.gl/mB84pQt6eMZvoXbE9" target="_blank" rel="noopener">Google Maps</a> | <a href="http://maps.apple.com/?saddr=54.3776,18.4662&daddr=54.4924,18.5480&dirflg=d" target="_blank" rel="noopener">Apple Maps</a></li>
+    <li>From Gdynia PKM Stadion train station: <a href="https://maps.app.goo.gl/TvNgTb4Xoe69Nv7d6" target="_blank" rel="noopener">Google Maps</a> | <a href="http://maps.apple.com/?saddr=54.4948,18.5470&daddr=54.4924,18.5480&dirflg=w" target="_blank" rel="noopener">Apple Maps</a></li>
   </ul>
   <div class="text-white-50">Tip: follow the signs to PPNT Building III (Bud. III).</div>
   <hr class="my-3"/>
