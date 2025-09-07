@@ -27,7 +27,7 @@
   .sessions-legend .legend-item{display:flex;align-items:center;gap:.5rem;color:rgba(255,255,255,.9);font-size:.95rem}
   /* Speaker avatar (match speakers page styling) */
   .sessions-list .avatar-frame{width:76px;height:76px;border-radius:9999px;background:#17202c;overflow:hidden;display:inline-block;border:2px solid #1b2635;transition:box-shadow .2s ease}
-  .sessions-list .avatar-frame img{width:100%;height:100%;object-fit:cover;object-position:50% 25%;display:block}
+  .sessions-list .avatar-frame img{width:100%;height:100%;object-fit:cover;object-position:50% var(--fy,25%);display:block}
   .sessions-list a:hover .avatar-frame{box-shadow:0 0 0 3px #6f42c1,0 0 14px 6px #ff9900}
 
   /* Multi-speaker avatars */
@@ -42,10 +42,10 @@
   <div class="col-12 col-lg-10">
     <div class="sessions-legend p-3">
       <div class="legend-grid">
-        <div class="legend-item"><span class="badge level l100">Level 100</span><span>Introductory: overview of AWS services and features; for newcomers.</span></div>
-        <div class="legend-item"><span class="badge level l200">Level 200</span><span>Intermediate: best practices, service details, demos; basic familiarity required.</span></div>
-        <div class="legend-item"><span class="badge level l300">Level 300</span><span>Advanced: in-depth content; assumes hands-on experience.</span></div>
-        <div class="legend-item"><span class="badge level l400">Level 400</span><span>Expert: for very experienced practitioners building custom solutions.</span></div>
+        <div class="legend-item"><span class="badge level l100">100</span><span>Introductory: overview of AWS services and features; for newcomers.</span></div>
+        <div class="legend-item"><span class="badge level l200">200</span><span>Intermediate: best practices, service details, demos; basic familiarity required.</span></div>
+        <div class="legend-item"><span class="badge level l300">300</span><span>Advanced: in-depth content; assumes hands-on experience.</span></div>
+        <div class="legend-item"><span class="badge level l400">400</span><span>Expert: for very experienced practitioners building custom solutions.</span></div>
       </div>
     </div>
   </div>
@@ -125,7 +125,7 @@
                 <span title="{{ $sp.Title }}">
                   {{- if $photo -}}
                     {{- $fy := or $sp.Params.focusY "25%" -}}
-                    <span class="avatar-frame"><img src="{{ $photo.RelPermalink }}" alt="{{ $sp.Title }}" style="object-position:50% {{ $fy }};"></span>
+                    <span class="avatar-frame"><img src="{{ $photo.RelPermalink }}" alt="{{ $sp.Title }}" style="--fy: {{ $fy }};"></span>
                   {{- else -}}
                     <span class="avatar-initials">{{ (substr $sp.Title 0 1) | upper }}</span>
                   {{- end -}}
