@@ -51,7 +51,9 @@
   </div>
   </div>
 
-<div class="row g-3 sessions-list">
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-10">
+    <div class="row g-3 sessions-list">
   {{- /* 1) Weź sessions i odfiltruj Keynote/Organizational */ -}}
   {{- $items := where .Pages ".Params.format" "not in" (slice "Keynote" "Organizational") -}}
 
@@ -157,5 +159,7 @@
       </a>
     </div>
   {{- end -}}
+    </div>
+  </div>
 </div>
 {{ end }}
