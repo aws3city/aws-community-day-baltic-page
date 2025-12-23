@@ -14,6 +14,10 @@ ignoreLogs = ['warning-goldmark-raw-html']
     name = "Speakers"
     url = "/speakers/"
     weight = 30
+  [[menu.main]]
+    name = "Edycja 2025"
+    url = "https://awsbaltic.eu/2025/"
+    weight = 800
 [params]
 headerLogo = "/img/awsbaltic.png"
 images = ["/img/awsbaltic.png"]

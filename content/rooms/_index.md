@@ -39,5 +39,3 @@ Just show a list of rooms (as temporary solution)
 -->
 
 {{< figure src="img/building-3.png" alt="Ground Floor Map" title="PPNT Map" >}}
-{{< figure src="img/ppnt-p0.png" alt="Ground Floor Map" title="Building III Ground Floor" >}}
-{{< figure src="img/ppnt-p1.png" alt="Ground Floor Map" title="Building III First Floor" >}}

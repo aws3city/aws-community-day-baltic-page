@@ -1,3 +1,4 @@
 ---
 title: "16:30 - 17:00"
+summary: Closing Ceremony
 ---
